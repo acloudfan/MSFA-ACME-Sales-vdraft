@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * Strategic Pattern: Entity
- * Persistence: Stored in a DB with unique Identity
+ * Persistence: Stored in a DB with a unique Identity
  * Model: Acme Sales
  * Represents a Vacation Package
  */

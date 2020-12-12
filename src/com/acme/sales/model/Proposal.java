@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Strategic Pattern: Aggregate Root
+ * Strategic Pattern: Entity
  * Created when a customer calls ACME to buy package. Customer may request creation of multiple proposals
  * Model: Acme Sales
  * Represents the sale proposal prepared for the customer

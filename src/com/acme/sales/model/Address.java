@@ -15,6 +15,7 @@ public class Address {
     public final String state;
     public final String zipcode;
 
+    // Flag is set to true if the address is validated/verified
     private boolean contactInformationValidated;
 
     public Address(String addressLine1, String addressLine2, String city, String state, String zipcode, boolean contactInformationValidated) {

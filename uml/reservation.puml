@@ -1,0 +1,16 @@
+@startuml
+abstract class Reservation {
+    - String : providerId
+    + Reservation(String: providerId)
+    # cancel()
+    # reserve()
+}
+
+
+Reservation <|-- AirlineReservation
+Reservation <|-- HotelReservation
+Reservation <|-- RentalCarReservation
+
+
+
+@enduml

@@ -1,0 +1,16 @@
+@startuml
+
+class BookingConfirmation {
+    - PaymentConfirmation: paymentConfirmation
+    - ArrayList<Reservation>: reseservations
+    + cancel()
+
+}
+
+
+BookingConfirmation "1" o-- "1" PaymentConfirmation
+BookingConfirmation "1" o-- "*" AirlineReservation
+BookingConfirmation "1" o-- "*" HotelReservation
+BookingConfirmation "1" o-- "*" RentalCarReservation
+
+@enduml

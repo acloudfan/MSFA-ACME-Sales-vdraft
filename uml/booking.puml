@@ -1,0 +1,27 @@
+@startuml
+
+class BookingConfirmation {
+    - PaymentConfirmation: paymentConfirmation
+    - ArrayList<Reservation>: reseservations
+
+    + getBookingConfirmationState: BookingConfirmationState()
+    + reserve()
+    + cancelReservation()
+
+}
+
+enum BookingConfirmationState {
+            PENDING_PAYMENT
+            PENDING_RESERVATION
+            RESERVATION_IN_PROGRESS
+            CONFIRMED
+            CANCELLATION_IN_PROGRESS
+            CANCELLED
+        }
+
+BookingConfirmation "1" o-- "1" PaymentConfirmation
+BookingConfirmation "1" o-- "*" AirlineReservation
+BookingConfirmation "1" o-- "*" HotelReservation
+BookingConfirmation "1" o-- "*" RentalCarReservation
+
+@enduml

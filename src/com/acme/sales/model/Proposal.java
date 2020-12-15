@@ -44,7 +44,7 @@ public class Proposal {
     private Offer[] offersApplied = new Offer[2];
 
     // Status
-    enum  Status {
+    public enum  Status {
         ACCEPTED,
         REJECTED, /** Customer has rejected the proposal **/
         ON_HOLD,  /** Customer has not made a decision **/

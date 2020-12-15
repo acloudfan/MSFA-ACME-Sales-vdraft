@@ -53,4 +53,16 @@ public class BookingConfirmation {
      */
     private ArrayList<Pax>  paxs;
 
+    /**
+     * Enumeration for the state machine
+     */
+    public enum BookingConfirmationState {
+        PENDING_PAYMENT,
+        PENDING_RESERVATION,
+        RESERVATION_IN_PROGRESS,
+        CONFIRMED,
+        CANCELLATION_IN_PROGRESS,
+        CANCELLED
+    }
+
 }

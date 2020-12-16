@@ -1,7 +1,9 @@
 package com.acme.sales.model.booking;
 
 
+import com.acme.sales.model.Proposal;
 import com.acme.sales.model.Pax;
+import com.acme.sales.model.payment.PaymentConfirmation;
 
 import java.util.ArrayList;
 
@@ -14,46 +16,6 @@ import java.util.ArrayList;
 public class BookingConfirmation {
 
     /**
-     * Has a unique Booking reference
-     */
-    private String bookingReference;
-
-    /**
-     * Reference to the proposal that customer has committed to
-     */
-    private String proposalReference;
-
-    /**
-     * Reference to the customer record
-     */
-    private String customerReference;
-
-    /**
-     * Holds payment confirmation record
-     */
-    private PaymentConfirmation paymentConfirmation;
-
-    /**
-     * Holds information on Hotel Reservation
-     */
-    private HotelReservation    hotelReservation;
-
-    /**
-     * Holds information on Airline Reservation
-     */
-    private AirlineReservation  airlineReservation;
-
-    /**
-     * Holds information on Rental Car Reservation
-     */
-    private RentalCarReservation rentalCarReservation;
-
-    /**
-     * Passengers information
-     */
-    private ArrayList<Pax>  paxs;
-
-    /**
      * Enumeration for the state machine
      */
     public enum BookingConfirmationState {
@@ -62,7 +24,57 @@ public class BookingConfirmation {
         RESERVATION_IN_PROGRESS,
         CONFIRMED,
         CANCELLATION_IN_PROGRESS,
-        CANCELLED
+        CANCELLED,
+        UNKNOWN
     }
 
+    /**
+     * Manages state of reservation
+     */
+    private BookingConfirmationState  status = BookingConfirmationState.UNKNOWN;
+
+    /**
+     * Has a unique Booking reference
+     */
+    private int bookingReference;
+
+    /**
+     * Reference to the proposal that customer has committed to
+     */
+    private int proposalReference;
+
+    /**
+     * Reference to the customer record
+     */
+    private int customerReference;
+
+    /**
+     * Holds payment confirmation record
+     */
+    private PaymentConfirmation paymentConfirmation;
+
+    /**
+     * Passengers information
+     */
+    private ArrayList<Pax>  paxs;
+
+    /**
+     * The vacation package may have multiple parts such as Hotel, Car, Air tickets ...
+     * The objects representing the reservations are added to this list
+     */
+    private ArrayList<Reservation> reservations;
+
+    /**
+     * Instance is created from the proposal
+     */
+    public BookingConfirmation(Proposal proposal) {
+        // Setup the reference to proposal
+        proposalReference = proposal.getReferenceNumber();
+
+        // Setup the reference to customer
+        customerReference = proposal.getCustomerReference();
+
+        // Get the reservation holders
+//        reservations = proposal.ge
+    }
 }

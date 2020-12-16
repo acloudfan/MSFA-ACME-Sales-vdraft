@@ -1,5 +1,6 @@
 package com.acme.sales.model;
 
+
 /**
  * Strategic Pattern: Entity
  * Persistence: Stored in DB as a unique object
@@ -9,12 +10,15 @@ package com.acme.sales.model;
 
 public class Customer {
 
+    // Reference number for each customer
+    private int referenceNumber;
+
     // Customer identified uniquely by an email address
     public String email;
 
     // This is an alternate way to identify the customer
     public String phoneNumber;
-    public Address address;
+    public Address  address;
 
     // Name
     public final String fName;
@@ -35,5 +39,10 @@ public class Customer {
         this.email=email;
     }
 
-
+    /**
+     * Return the customer reference
+     */
+    public int getReferenceNumber() {
+        return referenceNumber;
+    }
 }

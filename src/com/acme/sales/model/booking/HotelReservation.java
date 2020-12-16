@@ -6,16 +6,22 @@ package com.acme.sales.model.booking;
 public class HotelReservation extends Reservation {
 
     public HotelReservation(String provider){
-        super(provider);
+
+        super(ReservationTypes.HOTEL, provider);
     }
 
     @Override
-    public String reserve(){
-        return "fake-reservation-id";
+    public boolean reserve(){
+        // Successful reservation will set the reservationReference
+        reservationReference =  "fake-hotel-reservation-ref";
+        return true;
     }
 
     @Override
     public boolean cancel() {
+        // Set the cancellation reference
+        cancellationReference = "fake-hotel-cancellation-ref";
+
         return true;
     }
 }

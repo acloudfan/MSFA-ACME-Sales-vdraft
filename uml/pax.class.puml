@@ -1,0 +1,13 @@
+@startuml
+
+
+class Pax <<Value Object>> {
+    + String fName
+    + String mName
+    + String lName
+    + int age
+}
+
+title  Pax or Passenger Class\n\n
+footer \n\n Part of a course on Microservices \n Copyright 2021. For more info visit http://ACloudFan.com \n
+@enduml

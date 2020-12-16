@@ -20,6 +20,7 @@ public class EmailPhoneValidator {
 
     // Validate the email address
     public boolean validateEmailAddress() throws Exception{
+
         // Logic for email address validation e.g., use Regex
 
         return true;
@@ -27,6 +28,7 @@ public class EmailPhoneValidator {
 
     // Validate the phone number
     public boolean validatePhoneNumber() throws Exception {
+
         // Logic for the phone number validation
 
         return true;

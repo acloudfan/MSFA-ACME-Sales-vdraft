@@ -1,9 +1,5 @@
 package com.acme.sales.model;
 
-import com.acme.sales.model.Offer;
-import com.acme.sales.model.Pax;
-import com.acme.sales.model.VacationPackage;
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -15,8 +11,14 @@ import java.util.Date;
  */
 public class Proposal {
 
+    // Customer reference
+    private int customerReference;
+
     // Proposal reference;
-    private String referenceCode;
+    private int referenceNumber;
+
+    // Proposal friendly name
+    private String friendlyProposalName;
 
     // Creation date
     private Date createdDate;
@@ -44,16 +46,17 @@ public class Proposal {
     private Offer[] offersApplied = new Offer[2];
 
     // Status
-    public enum  Status {
+    public enum  ProposalStatus {
         ACCEPTED,
         REJECTED, /** Customer has rejected the proposal **/
         ON_HOLD,  /** Customer has not made a decision **/
         AWAITING_CONFIRMATION,   /** Customer has paid but providers need to confirm **/
+        EXPIRED,
         UNKNOWN
     }
 
     // Proposal status
-    private Status  status=Status.UNKNOWN;
+    private ProposalStatus  status=ProposalStatus.UNKNOWN;
 
 
     /**
@@ -71,16 +74,25 @@ public class Proposal {
         return true;
     }
 
-    private String generateReferenceCode(){
-        // Business Rule: 3 letter fname + 3 letter of last name + 3 letter of product + MM + DD + YY
+    private String friendlyProposalName(){
+        // Business Rule: 3 letter fname + 3 letter of last name + 3 letter of product + Travel-MM + Travel-DD + Travel-YY
         return "";
     }
 
+
     /**
-     * Book the package
+     * Reference number for the proposal
+     * @return
      */
-    public boolean bookPackage(){
-        return true;
+    public int getReferenceNumber() {
+        return referenceNumber;
+    }
+
+    /**
+     * Return the customer reference number
+     */
+    public int getCustomerReference() {
+        return customerReference;
     }
 
     /**
@@ -89,4 +101,5 @@ public class Proposal {
     public double applyOffer(Offer  offer){
         return 0.0;
     }
+
 }

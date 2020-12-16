@@ -15,14 +15,14 @@ public class Pax {
     public final String lName;
 
     // Age
-    private final int age;
+    public final int age;
 
     /**
      * Constructor
-     * @param fName
-     * @param mName
-     * @param lName
-     * @param age
+     * @param fName First name of the passenger
+     * @param mName Middle name of the passenger
+     * @param lName Last name of the passenger
+     * @param age   Age of the passenger
      */
     public Pax(String fName, String mName, String lName, int age) {
         this.fName = fName;

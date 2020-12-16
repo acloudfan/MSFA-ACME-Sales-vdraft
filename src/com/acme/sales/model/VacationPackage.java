@@ -1,5 +1,8 @@
 package com.acme.sales.model;
 
+import com.acme.sales.model.booking.Reservation;
+
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -41,4 +44,19 @@ public class VacationPackage {
     // This is the destination city
     // In case of cruise it is the port of origin
     private String destination;
+
+    // These reservations are part of the package
+    private ArrayList<Reservation> reservationHolders;
+
+    /**
+     * Generate the reservations needed for the booking confirmation
+     */
+    public ArrayList<Reservation>  generateReservationholders(){
+        ArrayList<Reservation>  generated = new ArrayList<Reservation>();
+        // Iterate over the holders and create the clones
+        for(Reservation r : reservationHolders){
+            generated.add(r.clone());
+        }
+        return generated;
+    }
 }

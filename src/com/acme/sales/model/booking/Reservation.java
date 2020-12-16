@@ -1,9 +1,11 @@
 package com.acme.sales.model.booking;
 
+import java.util.Date;
+
 /**
  * All provider reservation classes inherit from this class
  */
-public abstract class Reservation {
+abstract public  class Reservation {
 
     // ID of the Provider
     protected final String provider;
@@ -14,16 +16,42 @@ public abstract class Reservation {
     // Reference code provided by the Provider for cancellation
     protected String cancellationReference;
 
+    // Dates of reservation
+    // In case of HOTEL/RESORT/CRUISE - these are the check in & checkout dates
+    protected Date  startDate;
+    protected Date  endDate;
 
-    public Reservation(String provider) {
+    // for the status of the reservation
+    enum Status {
+        UNKNOWN,
+        CONFIRMED,
+        CANCELLED
+    }
+
+    // types of reservation
+    enum ReservationTypes {
+        HOTEL,
+        AIRLINE,
+        CAR_RENTAL,
+        CRUISE,
+        RESORT
+    }
+
+    // Setup by the child class by way of constructor
+    public final ReservationTypes reservationType;
+
+
+    public Reservation(ReservationTypes typ, String provider) {
+
         this.provider = provider;
+        reservationType = typ;
     }
 
     /**
      * This is to initiate the reservation process
      * @return
      */
-    public abstract String reserve();
+    public abstract boolean reserve();
 
     /**
      * This is to initiate the cancellation process
@@ -36,5 +64,40 @@ public abstract class Reservation {
      */
     public String getReservationReference(){
         return reservationReference;
+    }
+
+    /**
+     * Returns the cancellation reference number
+     */
+    public String getCancellationReference() { return cancellationReference; }
+
+    /**
+     * Logic for checking the status
+     */
+    public Status getStatus(){
+        if(cancellationReference != null){
+            return Status.CANCELLED;
+        } else if(reservationReference != null){
+            return  Status.CONFIRMED;
+        }
+
+        return Status.UNKNOWN;
+    }
+
+    /**
+     * Setup the Start & End Dates
+     */
+    public void setupDates(Date startDate, Date endDate){
+        /** Rules for validation of dates **/
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    /**
+     * Clones the holder
+     * @return
+     */
+    public Reservation clone(){
+        return  this.clone();
     }
 }

@@ -1,0 +1,42 @@
+@startuml
+
+
+
+class BookingConfirmation <<Aggregate Root>> {
+    - PaymentConfirmation: paymentConfirmation
+    - ArrayList<Reservation>: reseservations
+    - int : referenceProposal
+
+    + getBookingConfirmationState: BookingConfirmationState()
+    + reserve()
+    + cancelReservation()
+
+}
+
+enum BookingConfirmationState {
+            PENDING_PAYMENT
+            PENDING_RESERVATION
+            RESERVATION_IN_PROGRESS
+            CONFIRMED
+            CANCELLATION_IN_PROGRESS
+            CANCELLED
+        }
+
+BookingConfirmation -- BookingConfirmationState : defines
+
+'These elements cannot exist on their own in the Sales context
+
+BookingConfirmation "1" *-- "*" AirlineReservation
+BookingConfirmation "1" *-- "*" HotelReservation
+BookingConfirmation "1" *-- "*" RentalCarReservation
+
+
+!include ../payment/payment.class.puml
+BookingConfirmation "1" *-- "1" PaymentConfirmation  : has
+
+'Holds reference to the proposal
+BookingConfirmation "1" o-- "1" Proposal   : references
+
+
+title Booking Confirmation Class \n\n
+@enduml

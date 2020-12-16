@@ -1,0 +1,11 @@
+@startuml
+
+title    Payment Confirmation Class \n\n
+
+'In Sales context this does not exist on its own
+class PaymentConfirmation <<Value Object>> {
+    + Date : processedDate
+    + int  : confirmationReference
+    + int  : cancellarionReference
+}
+@enduml

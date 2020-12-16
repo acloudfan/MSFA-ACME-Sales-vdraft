@@ -1,0 +1,37 @@
+@startuml
+
+
+class Customer <<Entity>> {
+    + int: reference
+    + String : fName
+    + String : mName
+    + String : lName
+
+    + Address : address
+}
+note "Persisted in the Sales system" as N1
+N1 .. Customer
+
+class Address <<Value Object>>{
+    + String addressLine1
+    + String addressLine2
+    + String city
+    + String state
+    + String zipcode
+}
+note "Persisted as part of Customer" as N2
+Address .. N2
+
+class EmailPhoneValidator <<Value Object>>{
+    + boolean validatePhoneNumber()
+    + boolean validateEmailAddress()
+}
+note "Not persisted, just used for validation and then disposed" as N3
+EmailPhoneValidator .. N3
+
+Customer "1" *-- "1" Address  : has
+Customer "uses" -- EmailPhoneValidator
+
+title  Customer class \n \n
+footer \n Part of a course on Microservices \n Copyright 2021. For more info visit http://ACloudFan.com \n
+@enduml

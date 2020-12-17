@@ -30,6 +30,7 @@ public class VacationPackage {
     private vacationPackageType packageType;
 
     // Suggested retail price for the product - this is set by product management team
+    // This is a Per Person price
     private double retailPrice;
 
     // Date till this product can be purchased
@@ -48,6 +49,32 @@ public class VacationPackage {
     // These reservations are part of the package
     private ArrayList<Reservation> reservationHolders;
 
+    public VacationPackage(String name, String description, int numberOfNights, vacationPackageType packageType, double retailPrice,
+                           Date validTill, boolean active, boolean soldOut, String destination, ArrayList<Reservation> reservationHolders) {
+        this.name = name;
+        this.description = description;
+        this.numberOfNights = numberOfNights;
+        this.packageType = packageType;
+        this.retailPrice = retailPrice;
+        this.validTill = validTill;
+        this.active = active;
+        this.soldOut = soldOut;
+        this.destination = destination;
+        this.reservationHolders = reservationHolders;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getNumberOfNights() {
+        return numberOfNights;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
     /**
      * Generate the reservations needed for the booking confirmation
      */
@@ -59,4 +86,6 @@ public class VacationPackage {
         }
         return generated;
     }
+
+
 }

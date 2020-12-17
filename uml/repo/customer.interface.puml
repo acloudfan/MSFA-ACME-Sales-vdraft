@@ -1,0 +1,28 @@
+@startuml
+
+interface CustomerRepo <<Repository>> {
+    + boolean add(Customer customer)
+    + Customer get(int reference)
+    + Customer get(String email, String phoneNumber)
+    + boolean remove(Customer customer)
+    + boolean remove(int  reference)
+}
+note "This is the Customer repository interface or standard contract" as N1
+N1 .. CustomerRepo
+
+class CustomerRepoFake {
+    This is a concrete class that would implement the methods
+    This <b>fake implementation of repo for unit testing</b>
+    Real implementation would connect to a Database backend
+    such as RDBMS/MySQL, PostreSQL   NoSQL/MongoDB etc
+    --
+    Exposes the Repo functions defined in interface
+}
+note "Fake repo implementation for testing" as N2
+N2 .. CustomerRepoFake
+
+CustomerRepo <|-- CustomerRepoFake  : Implements
+
+title  Customer Repository Interface \n \n
+footer \n Part of a course on Microservices \n Copyright @ 2021. For more info visit http://ACloudFan.com \n
+@enduml

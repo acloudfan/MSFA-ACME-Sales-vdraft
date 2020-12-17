@@ -9,6 +9,8 @@ abstract public  class Reservation {
 
     // ID of the Provider
     protected final String provider;
+    // Contract code set between ACME and provider
+    protected final String contractCode;
 
     // Reference code provided by the Provider for reservation
     protected String reservationReference;
@@ -41,10 +43,11 @@ abstract public  class Reservation {
     public final ReservationTypes reservationType;
 
 
-    public Reservation(ReservationTypes typ, String provider) {
+    public Reservation(ReservationTypes typ, String provider, String contractCode) {
 
         this.provider = provider;
         reservationType = typ;
+        this.contractCode = contractCode;
     }
 
     /**

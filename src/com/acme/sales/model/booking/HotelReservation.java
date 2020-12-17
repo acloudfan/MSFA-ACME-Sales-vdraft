@@ -5,9 +5,9 @@ package com.acme.sales.model.booking;
  */
 public class HotelReservation extends Reservation {
 
-    public HotelReservation(String provider){
+    public HotelReservation(String provider, String contractCode){
 
-        super(ReservationTypes.HOTEL, provider);
+        super(ReservationTypes.HOTEL, provider, contractCode);
     }
 
     @Override

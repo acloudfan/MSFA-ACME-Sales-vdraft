@@ -14,16 +14,18 @@ public class Customer {
     private int referenceNumber;
 
     // Customer identified uniquely by an email address
-    public String email;
+    private String email;
 
     // This is an alternate way to identify the customer
-    public String phoneNumber;
-    public Address  address;
+    private String phoneNumber;
+    private Address  address;
 
     // Name
     public final String fName;
     public final String mName;
     public final String lName;
+
+
 
     /**
      * Constructor - first time creation of the object would require the contact information to be validated
@@ -40,9 +42,40 @@ public class Customer {
     }
 
     /**
+     * Once a customer is successfully created a reference is created
+     * @return
+     */
+    public void setReferenceNumber(int referenceNumber) {
+        this.referenceNumber = referenceNumber;
+    }
+
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    /**
      * Return the customer reference
      */
     public int getReferenceNumber() {
+
         return referenceNumber;
+    }
+
+    /**
+     * Compares the passed Email & phone number - if anymatch then returns true
+     * @return
+     */
+    public boolean isCustomerEqual(String email, String phoneNumber){
+        return (this.email.equalsIgnoreCase(email) || this.phoneNumber.equalsIgnoreCase(phoneNumber));
     }
 }

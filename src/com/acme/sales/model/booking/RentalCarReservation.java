@@ -3,8 +3,8 @@ package com.acme.sales.model.booking;
 public class RentalCarReservation extends Reservation {
 
 
-    public RentalCarReservation(String provider) {
-        super(ReservationTypes.CAR_RENTAL, provider);
+    public RentalCarReservation(String provider, String contractCode) {
+        super(ReservationTypes.CAR_RENTAL, provider, contractCode);
     }
 
 

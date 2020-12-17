@@ -19,15 +19,14 @@ class Address <<Value Object>>{
     + String state
     + String zipcode
 }
-note "Persisted as part of Customer" as N2
-Address .. N2
+note bottom of Address:Persisted as part of Customer
 
 class EmailPhoneValidator <<Value Object>>{
     + boolean validatePhoneNumber()
     + boolean validateEmailAddress()
 }
-note "Not persisted, just used for validation and then disposed" as N3
-EmailPhoneValidator .. N3
+note bottom of EmailPhoneValidator: Not persisted, just used for validation and then disposed
+
 
 Customer "1" *-- "1" Address  : has
 Customer "uses" -- EmailPhoneValidator

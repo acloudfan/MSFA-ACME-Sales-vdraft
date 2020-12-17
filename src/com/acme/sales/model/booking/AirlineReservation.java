@@ -1,8 +1,9 @@
 package com.acme.sales.model.booking;
 
 public class AirlineReservation extends Reservation {
-    public AirlineReservation(String provider) {
-        super(ReservationTypes.AIRLINE, provider);
+
+    public AirlineReservation(String provider, String contractCode) {
+        super(ReservationTypes.AIRLINE, provider, contractCode);
     }
 
     @Override

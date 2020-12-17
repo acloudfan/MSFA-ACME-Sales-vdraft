@@ -1,16 +1,16 @@
 @startuml
 
-note "Represents the Reservation \n for different parts of package \n e.g., hotel, airline, cruise" as N1
+
 abstract class Reservation <<Value Object>> {
     - String : providerId
+    - String : contractCode
     # cancel()
     # reserve()
     # Reservation(ReservationTypes:, typ, String: providerId)
     # setupDates(Date: startDate, Date: endDate)
 }
-
-N1 .. Reservation
-
+note  top of Reservation:"Represents the Reservation \n for different parts of package \n e.g., hotel, airline, cruise"
+note right of Reservation: "contractCode" : All contracts have a code that is \n managed by the products team
 
 enum ReservationTypes {
     HOTEL,
@@ -26,10 +26,11 @@ enum ReservationStatus {
     CANCELLED
 }
 
-note "Concrete classes implement the \n reservtaion/cancellation behavior" as N2
+
 
 'Inheritance relationship
 Reservation <|-- AirlineReservation
+note "Concrete classes implement the \n reservtaion/cancellation behavior" as N2
 AirlineReservation .. N2
 Reservation <|-- HotelReservation
 HotelReservation .. N2
@@ -43,6 +44,6 @@ Reservation -- ReservationStatus  : defines
 
 
 title Reservation Classe Hierarchy \n\n
-footer \n Part of a course on Microservices \n Copyright 2021. For more info visit http://ACloudFan.com \n
+footer \n Part of a course on Microservices \n Copyright @ 2021. For more info visit http://ACloudFan.com \n
 
 @enduml

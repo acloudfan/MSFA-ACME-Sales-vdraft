@@ -87,5 +87,8 @@ public class VacationPackage {
         return generated;
     }
 
+    public Object clone(){
+        return this.generateReservationholders();
+    }
 
 }

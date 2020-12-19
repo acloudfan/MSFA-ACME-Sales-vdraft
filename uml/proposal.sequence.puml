@@ -1,15 +1,14 @@
 @startuml
 
-title Proposal creation sequence\n
-
-
 autonumber
 Customer -> "Sales Agent" : Identifies + provides desired destination, budget, preferences ...
 
 "Sales Agent" -> "Sales System" : Find customer using email/phone or Add Customer as new customer
+
 "Sales Agent" -> "Sales System" : Selects Vacation Packages
 
 "Sales Agent" -> "Customer" : Describes the various products
+
 "Sales Agent" -> "Sales System" : Creates 1 or more proposals
 
 "Sales Agent" -> "Customer" : Describes the proposals
@@ -18,5 +17,6 @@ Customer -> "Sales Agent" : Identifies + provides desired destination, budget, p
 
 "Sales Agent" -> "Sales System" : Confirms and initiates booking
 
-footer \n Part of a course on Microservices \n Copyright 2021. For more info visit http://ACloudFan.com \n
+title Proposal creation sequence\n\n
+footer \n\n\n Part of a course on Microservices \n Copyright @ 2021. For more info visit http://ACloudFan.com \n
 @enduml

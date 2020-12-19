@@ -1,0 +1,31 @@
+@startuml
+
+package com.acme.sales.model.services {
+    interface  PaymentGateway <<Infrastructure Service>> {
+        + PaymentConfirmation: processPayment(String creditCardNumber, int expiryMonth, int expiryYear, String zipCode)
+
+        + PaymentConfirmation: processRefund(PaymentConfirmation paymentConfirmation)
+    }
+}
+note top of PaymentGateway : Represents an external service for credit card processing
+
+note left of PaymentGateway::"PaymentConfirmation: processPayment(String creditCardNumber, int expiryMonth, int expiryYear, String zipCode)"
+   This is the function used for payment confirmation
+   when customer payment is successful
+end note
+
+note left of PaymentGateway::"PaymentConfirmation: processRefund(PaymentConfirmation paymentConfirmation)"
+   This is the function used for payment cancellation
+   can only be called  if customer has already paid
+end note
+
+
+
+!include ../payment/paymentconfirmation.class.puml
+
+
+PaymentGateway -- PaymentConfirmation : "creates \n references"
+
+Title Payment Gateway Service Class and Interfaces \n\n
+
+@enduml

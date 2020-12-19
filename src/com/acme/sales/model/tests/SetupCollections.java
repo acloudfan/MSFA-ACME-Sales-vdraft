@@ -7,6 +7,7 @@ import com.acme.sales.model.booking.AirlineReservation;
 import com.acme.sales.model.booking.HotelReservation;
 import com.acme.sales.model.booking.Reservation;
 import com.acme.sales.model.tests.fake.CustomerRepoFake;
+import com.acme.sales.model.tests.fake.ProposalRepoFake;
 import com.acme.sales.model.tests.fake.VacatonPackageRepoFake;
 
 import java.util.ArrayList;
@@ -15,11 +16,19 @@ import java.util.Date;
 public class SetupCollections {
     public static CustomerRepoFake  customerRepoFake;
     public static VacatonPackageRepoFake vacatonPackageRepoFake;
+    public static ProposalRepoFake proposalRepoFake = new ProposalRepoFake();
+
+    /**
+     * Generate the fake data in static initializer
+     */
+    static  {
+        generateData();
+    }
 
     /**
      * Sets up the Fake Customer Collection
      */
-    private static void generateCustomerData(){
+    private static void generateData(){
         // Add some customers
         customerRepoFake = new CustomerRepoFake();
         Address address = new Address("123 mai st","","Kent","OH","92999",true);
@@ -63,5 +72,12 @@ public class SetupCollections {
                 5, VacationPackage.vacationPackageType.HOTEL_AIR_CAR,800.98,new Date(2021,01,31),true,false,"florida",
                 holders);
         vacatonPackageRepoFake.add(vacationPackage);
+    }
+
+    /**
+     * Sets up the fake proposals
+     */
+    private static void generateVacationProposals() {
+
     }
 }

@@ -5,7 +5,11 @@ import java.util.Date;
 
 /**
  * Strategic Pattern: Entity
- * Created when a customer calls ACME to buy package. Customer may request creation of multiple proposals
+ * Created when a customer calls ACME to buy package; provides their preferences.
+ * 1. Reservation place holder are created using the VacationPackage
+ * 2. Dates and other preferences are then set on the Reservation placeholders
+ *    e.g., Hotel reservation, Airline reservation etc
+ * Customer may request creation of multiple proposals
  * Model: Acme Sales
  * Represents the sale proposal prepared for the customer
  */
@@ -15,7 +19,7 @@ public class Proposal {
     private int customerReference;
 
     // Proposal reference;
-    private int referenceNumber;
+    private int reference;
 
     // Proposal friendly name
     private String friendlyProposalName;
@@ -45,6 +49,9 @@ public class Proposal {
     // Business Rule ONLY 2 offers can be applied to a proposal
     private Offer[] offersApplied = new Offer[2];
 
+    // Proposal reservation objects
+    private final ArrayList  reservations;
+
     // Status
     public enum  ProposalStatus {
         ACCEPTED,
@@ -60,8 +67,14 @@ public class Proposal {
 
 
     /**
-     * Behavior
+     *
      */
+    public Proposal(int customerReference,  VacationPackage vacationPackage, Date createdDate) {
+        this.customerReference = customerReference;
+        this.createdDate = createdDate;
+        this.vacationPackage = vacationPackage;
+        this.reservations = vacationPackage.generateReservationholders();
+    }
 
     /**
      * By default all proposals expire in 14 days of creation
@@ -84,8 +97,8 @@ public class Proposal {
      * Reference number for the proposal
      * @return
      */
-    public int getReferenceNumber() {
-        return referenceNumber;
+    public int getReference() {
+        return reference;
     }
 
     /**
@@ -101,5 +114,6 @@ public class Proposal {
     public double applyOffer(Offer  offer){
         return 0.0;
     }
+
 
 }

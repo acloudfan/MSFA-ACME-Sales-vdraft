@@ -1,0 +1,31 @@
+@startuml
+
+package com.acme.sales.model.services {
+    class  CustomerProposalService <<Application Service>> {
+        + CustomerProposalServiceResponse : CustomerProposalServiceResponse getCustomerProposals(int customerReference)
+    }
+
+    class CustomerProposalServiceResponse{
+        + Customer  customer;
+        + ArrayList<Proposal> proposals;
+    }
+}
+note top of CustomerProposalService : An agoopplication services that aggregates data for Customer & Proposal
+
+note left of CustomerProposalService::"CustomerProposalServiceResponse : CustomerProposalServiceResponse getCustomerProposals(int customerReference)"
+   This the <b>Standard Contract</b>
+   Exposed to the outside world.
+   An API class can wrap this class and expose it over HTTP
+end note
+
+
+CustomerProposalService -- CustomerProposalServiceResponse : creates
+
+!include ../customer.class.puml
+CustomerProposalServiceResponse o-- Customer
+
+!include ../proposal.puml
+CustomerProposalServiceResponse "1" o-- "*" Proposal
+
+Title Customer Proposal Service \n\n
+@enduml

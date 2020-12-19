@@ -36,7 +36,7 @@ public class BookingConfirmation {
     /**
      * Has a unique Booking reference
      */
-    private int bookingReference;
+    private int reference;
 
     /**
      * Reference to the proposal that customer has committed to
@@ -69,7 +69,7 @@ public class BookingConfirmation {
      */
     public BookingConfirmation(Proposal proposal) {
         // Setup the reference to proposal
-        proposalReference = proposal.getReferenceNumber();
+        proposalReference = proposal.getReference();
 
         // Setup the reference to customer
         customerReference = proposal.getCustomerReference();

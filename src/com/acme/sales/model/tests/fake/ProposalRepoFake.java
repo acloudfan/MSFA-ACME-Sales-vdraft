@@ -19,7 +19,7 @@ public class ProposalRepoFake implements ProposalRepo {
     public Proposal get(int reference) {
         // Loop through the collection
         for(Proposal proposal : collection){
-            if(proposal.getReferenceNumber() == reference) {
+            if(proposal.getReference() == reference) {
                 return   proposal;
             }
         }
@@ -42,7 +42,7 @@ public class ProposalRepoFake implements ProposalRepo {
     public boolean remove(int reference) {
         // Loop through the collection
         for(Proposal proposal : collection){
-            if(proposal.getReferenceNumber() == reference) {
+            if(proposal.getReference() == reference) {
                 collection.remove(proposal);
                 return   true;
             }

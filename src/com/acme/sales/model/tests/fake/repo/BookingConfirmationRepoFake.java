@@ -31,14 +31,25 @@ public class BookingConfirmationRepoFake implements BookingConfirmationRepo {
     }
 
     @Override
-    public BookingConfirmation getByCustomer(int customerReference) {
+    public ArrayList<BookingConfirmation> getByCustomer(int customerReference) {
+
+        // Using -1 as the number will not match and hence all bookings will be returned
+        return this.getByCustomer(customerReference, -1);
+    }
+
+    @Override
+    public ArrayList<BookingConfirmation> getByCustomer(int customerReference, int number) {
+        int  added = 0;
+        ArrayList<BookingConfirmation> bookings = new ArrayList<BookingConfirmation>();
         // Loop through the collection
         for(BookingConfirmation bookingConfirmation : collection){
             if(bookingConfirmation.getCustomerReference() == customerReference) {
-                return   bookingConfirmation;
+                bookings.add(bookingConfirmation);
+                added++;
+                if(added == number) return bookings;
             }
         }
-        return null;
+        return bookings;
     }
 
     @Override

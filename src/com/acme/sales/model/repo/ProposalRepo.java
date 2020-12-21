@@ -24,6 +24,13 @@ public interface ProposalRepo {
     public ArrayList<Proposal> getCustomerProposals(int customerReference);
 
     /**
+     * Similar to above but allows to restict the number of proposals to recent "number" of proposals
+     * e.g., request for "last 5 proposals"
+     * @return
+     */
+    public ArrayList<Proposal> getCustomerProposals(int customerReference,int number);
+
+    /**
      * Remove the vacation package
      */
     public boolean remove(int  reference);

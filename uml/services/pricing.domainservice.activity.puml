@@ -1,11 +1,9 @@
 @startuml
-
 (*)  --> "check proposal for missing information"
 
 If "Proposal missing information" then
 --> [Yes] "Return the errors"
 --> (*)
-
 else
 --> "Calculate base price <b>Number of PAX</b> x <b>Per person price</b>"
 --> "Add the hotel surcharge"
@@ -16,9 +14,7 @@ else
 Endif
 -->(*)
 
-
-
-title \n  Proposal Pricing - Domain Service Activity Diagram \n\n
-footer \n \n\n\n\n\n\
+title \n  Proposal Pricing - Domain Service \n
+footer \n Part of a course on Microservices \n Copyright @ 2021. For more info visit http://ACloudFan.com \n
 
 @enduml

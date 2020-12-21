@@ -28,14 +28,23 @@ public class ProposalRepoFake implements ProposalRepo {
 
     @Override
     public ArrayList<Proposal> getCustomerProposals(int customerReference) {
-        ArrayList<Proposal>  list = new ArrayList<>();
+        // Set the number to -1 and it will not match with added in next function hence all proposals returned
+        return  getCustomerProposals(customerReference, -1);
+    }
+
+    @Override
+    public ArrayList<Proposal> getCustomerProposals(int customerReference, int number) {
+        int added = 0;
+        ArrayList<Proposal>  proposals = new ArrayList<>();
         // Loop through the collection
         for(Proposal proposal : collection){
             if(proposal.getCustomerReference() == customerReference) {
-                list.add(proposal);
+                proposals.add(proposal);
+                added++;
+                if(added == number) return proposals;
             }
         }
-        return list;
+        return proposals;
     }
 
     @Override

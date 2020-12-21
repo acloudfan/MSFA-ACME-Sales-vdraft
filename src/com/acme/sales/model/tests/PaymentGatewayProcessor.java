@@ -1,7 +1,8 @@
 package com.acme.sales.model.tests;
 
-import com.acme.sales.model.payment.PaymentConfirmation;
 import com.acme.sales.model.services.PaymentGateway;
+import com.acme.sales.model.services.PaymentGatewayTransaction;
+import com.acme.sales.model.services.PaymentGatewayTransactionDetails;
 
 import java.util.Date;
 
@@ -10,26 +11,34 @@ import java.util.Date;
  */
 public class PaymentGatewayProcessor implements PaymentGateway {
     @Override
-    public PaymentConfirmation processPayment(String creditCardNumber, int expiryMonth, int expiryYear, String zipCode) {
+    public PaymentGatewayTransaction processPayment(String creditCardNumber, int expiryMonth, int expiryYear, String zipCode) {
 
-        // generate a fake confirmation
-        PaymentConfirmation  paymentConfirmation = new PaymentConfirmation(10000, new Date());
+        // This is where the code can be put in for interacting with a 3rd party service
 
-        return paymentConfirmation;
+        // Transform the response from the external service to an instance of type PaymentGatewayTransaction
+
+        return new PaymentGatewayTransaction("1234567890", "OK", null);
+
     }
 
-    /**
-     * This issues a full refund - support for partial refund not needed
-     * @param paymentConfirmation
-     * @return
-     */
     @Override
-    public PaymentConfirmation processRefund(PaymentConfirmation paymentConfirmation) {
+    public PaymentGatewayTransaction processRefund(String reference) {
 
-        // Simulate payment cancellation
-        PaymentConfirmation  cancelledPaymentConfirmation = new PaymentConfirmation(paymentConfirmation, 5000, new Date());
+        // This is where the code can be put in for interacting with a 3rd party service
 
-        return cancelledPaymentConfirmation;
+        // Transform the response from the external service to an instance of type PaymentGatewayTransaction
+
+        return new PaymentGatewayTransaction("0987654321", "OK", null);
     }
 
+    @Override
+    public PaymentGatewayTransactionDetails getTransactionDetails(String transactionReference) {
+
+        // Details may be retrieved from the external service
+
+        // Transform the service to create the instance of PaymentGatewayTransactionDetails
+
+        return new PaymentGatewayTransactionDetails("1234567890","John",
+                                                "Doe",new Date(),"CHARGE");
+    }
 }

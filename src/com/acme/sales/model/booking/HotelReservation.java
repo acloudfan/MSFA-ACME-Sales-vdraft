@@ -10,6 +10,11 @@ public class HotelReservation extends Reservation {
         super(ReservationTypes.HOTEL, provider, contractCode);
     }
 
+    private HotelReservation(ReservationTypes typ, String provider, String contractCode){
+
+        super(typ, provider, contractCode);
+    }
+
     @Override
     public boolean reserve(){
         // Successful reservation will set the reservationReference
@@ -23,5 +28,13 @@ public class HotelReservation extends Reservation {
         cancellationReference = "fake-hotel-cancellation-ref";
 
         return true;
+    }
+
+    @Override
+    public HotelReservation createClone() {
+        HotelReservation hotelReservation = new HotelReservation(ReservationTypes.HOTEL, this.provider, this.contractCode);
+
+        hotelReservation.setupDates(startDate, endDate);
+        return hotelReservation;
     }
 }

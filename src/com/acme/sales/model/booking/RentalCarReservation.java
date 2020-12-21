@@ -7,6 +7,10 @@ public class RentalCarReservation extends Reservation {
         super(ReservationTypes.CAR_RENTAL, provider, contractCode);
     }
 
+    private RentalCarReservation(ReservationTypes typ,String provider, String contractCode) {
+        super(typ, provider, contractCode);
+    }
+
 
     @Override
     public boolean reserve(){
@@ -21,5 +25,12 @@ public class RentalCarReservation extends Reservation {
         cancellationReference = "fake-car-cancellation-ref";
 
         return true;
+    }
+
+    @Override
+    public RentalCarReservation createClone() {
+        RentalCarReservation rentalCarReservation = new RentalCarReservation(ReservationTypes.CAR_RENTAL ,this.provider, this.contractCode);
+        rentalCarReservation.setupDates(startDate, endDate);
+        return rentalCarReservation;
     }
 }

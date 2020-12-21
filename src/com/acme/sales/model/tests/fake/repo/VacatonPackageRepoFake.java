@@ -1,4 +1,4 @@
-package com.acme.sales.model.tests.fake;
+package com.acme.sales.model.tests.fake.repo;
 
 import com.acme.sales.model.VacationPackage;
 import com.acme.sales.model.repo.VacationPackageRepo;

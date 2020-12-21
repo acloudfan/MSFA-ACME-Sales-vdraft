@@ -75,6 +75,22 @@ abstract public  class Reservation {
     public String getCancellationReference() { return cancellationReference; }
 
     /**
+     * Gets the reservation type
+     * @return
+     */
+    public ReservationTypes getReservationType() {
+        return reservationType;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    /**
      * Logic for checking the status
      */
     public Status getStatus(){
@@ -89,18 +105,24 @@ abstract public  class Reservation {
 
     /**
      * Setup the Start & End Dates
+     * Concete classes MUST setup the business rules and override this class
      */
-    public void setupDates(Date startDate, Date endDate){
+    public boolean setupDates(Date startDate, Date endDate){
         /** Rules for validation of dates **/
         this.startDate = startDate;
         this.endDate = endDate;
+        return true;
     }
 
     /**
-     * Clones the holder
+     * Concrete class must implement this method for creating their clone
      * @return
      */
-    public Reservation clone(){
-        return  this.clone();
+    abstract public Reservation createClone();
+
+    @Override
+    public String toString(){
+        String str = "reservationType="+this.reservationType+" "+"Provider="+this.provider;
+        return str;
     }
 }

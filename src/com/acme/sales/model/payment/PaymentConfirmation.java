@@ -39,6 +39,11 @@ public class PaymentConfirmation {
         newPaymentConfirmation.referenceNumberCancellation = referenceNumberCancellation;
     }
 
+    public void setReferenceNumberCancellation(int referenceNumberCancellation, Date date) {
+        this.referenceNumberCancellation = referenceNumberCancellation;
+        this.processedDate = date;
+    }
+
     /**
      * Considered to be PAID only if the payment was received and NOT cancelled
      * @return

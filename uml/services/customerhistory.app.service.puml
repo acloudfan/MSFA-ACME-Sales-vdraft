@@ -10,7 +10,7 @@ package com.acme.sales.model.services {
         + ArrayList<Proposal> proposals;
     }
 }
-note top of CustomerProposalService : An agoopplication services that aggregates data for Customer & Proposal
+note top of CustomerProposalService : An application services that aggregates data for Customer & Proposal
 
 note left of CustomerProposalService::"CustomerProposalServiceResponse : CustomerProposalServiceResponse getCustomerProposals(int customerReference)"
    This the <b>Standard Contract</b>
@@ -21,10 +21,10 @@ end note
 
 CustomerProposalService -- CustomerProposalServiceResponse : creates
 
-!include ../customer.class.puml
+'!include ../customer.class.puml
 CustomerProposalServiceResponse o-- Customer
 
-!include ../proposal.puml
+'!include ../proposal.puml
 CustomerProposalServiceResponse "1" o-- "*" Proposal
 
 Title Customer Proposal Service \n\n

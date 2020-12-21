@@ -1,5 +1,0 @@
-@startuml
-!include customer.interface.puml
-
-!include vacationpackage.interface.puml
-@enduml

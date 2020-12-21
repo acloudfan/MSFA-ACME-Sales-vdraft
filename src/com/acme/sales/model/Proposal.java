@@ -1,5 +1,7 @@
 package com.acme.sales.model;
 
+import com.acme.sales.model.booking.Reservation;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -15,11 +17,11 @@ import java.util.Date;
  */
 public class Proposal {
 
-    // Customer reference
-    private int customerReference;
-
     // Proposal reference;
     private int reference;
+
+    // Customer reference
+    private int customerReference;
 
     // Proposal friendly name
     private String friendlyProposalName;
@@ -50,7 +52,7 @@ public class Proposal {
     private Offer[] offersApplied = new Offer[2];
 
     // Proposal reservation objects
-    private final ArrayList  reservations;
+    private final ArrayList<Reservation>  reservations;
 
     // Status
     public enum  ProposalStatus {
@@ -69,7 +71,8 @@ public class Proposal {
     /**
      *
      */
-    public Proposal(int customerReference,  VacationPackage vacationPackage, Date createdDate) {
+    public Proposal(int  reference, int customerReference,  VacationPackage vacationPackage, Date createdDate) {
+        this.reference = reference;
         this.customerReference = customerReference;
         this.createdDate = createdDate;
         this.vacationPackage = vacationPackage;
@@ -109,11 +112,55 @@ public class Proposal {
     }
 
     /**
+     * Get the reservation at certain index
+     */
+    public Reservation getReservationAtIndex(int index){
+        // NO ERROR Check !!!
+        return reservations.get(index);
+    }
+
+    /**
      * This applies the offer to the Vacation Product
      */
     public double applyOffer(Offer  offer){
         return 0.0;
     }
 
+    /**
+     * Setup the start & end date for reservation at index
+     * Error check MUST be fixed - this is for test only
+     */
+    public boolean setupReservationDates(int index, Date startDate, Date  endDate){
+        if(index >= reservations.size() ) return false;
+        return reservations.get(index).setupDates(startDate,endDate);
+    }
+
+    /**
+     * Create clone of the reservations for use in Booking confirmation
+     * @return
+     */
+    public ArrayList<Reservation> generateReservations(){
+        ArrayList<Reservation>  generated = new ArrayList<Reservation>();
+        // Iterate over the holders and create the clones
+        for(Reservation r : reservations){
+            generated.add(r.createClone());
+        }
+        return generated;
+    }
+
+
+    public String toString(){
+        String str = "Proposal Reference="+this.reference+" CustomerReference="+this.customerReference+" Date="+this.createdDate;
+        str += " Vacation Package=["+this.vacationPackage.getName()+"]";
+
+        str += "[";
+        for(Reservation r : this.reservations){
+            str += "\t" + r + "{ Dates= "+r.getStartDate()+" to "+r.getEndDate()+"}" ;
+        }
+        str += "]";
+
+
+        return  str;
+    }
 
 }

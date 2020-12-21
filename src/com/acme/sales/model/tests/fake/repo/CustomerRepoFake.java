@@ -1,4 +1,4 @@
-package com.acme.sales.model.tests.fake;
+package com.acme.sales.model.tests.fake.repo;
 
 import com.acme.sales.model.Customer;
 import com.acme.sales.model.repo.CustomerRepo;
@@ -27,7 +27,7 @@ public class CustomerRepoFake implements CustomerRepo {
 
         // Loop through the collection
         for(Customer  customer : collection){
-            if(customer.getReferenceNumber() == reference) {
+            if(customer.getReference() == reference) {
                 return   customer;
             }
         }
@@ -52,7 +52,7 @@ public class CustomerRepoFake implements CustomerRepo {
 
         // Loop through the collection
         for(Customer  customerInCollection : collection){
-            if(customerInCollection.getReferenceNumber() == customer.getReferenceNumber()) {
+            if(customerInCollection.getReference() == customer.getReference()) {
                 collection.remove(customer);
                 return   true;
             }
@@ -64,7 +64,7 @@ public class CustomerRepoFake implements CustomerRepo {
     public boolean remove(int reference) {
         // Loop through the collection
         for(Customer  customerInCollection : collection){
-            if(customerInCollection.getReferenceNumber() == reference) {
+            if(customerInCollection.getReference() == reference) {
                 collection.remove(customerInCollection);
                 return   true;
             }

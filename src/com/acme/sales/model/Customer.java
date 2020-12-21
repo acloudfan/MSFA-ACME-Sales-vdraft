@@ -11,7 +11,7 @@ package com.acme.sales.model;
 public class Customer {
 
     // Reference number for each customer
-    private int referenceNumber;
+    private int reference;
 
     // Customer identified uniquely by an email address
     private String email;
@@ -45,8 +45,8 @@ public class Customer {
      * Once a customer is successfully created a reference is created
      * @return
      */
-    public void setReferenceNumber(int referenceNumber) {
-        this.referenceNumber = referenceNumber;
+    public void setReference(int reference) {
+        this.reference = reference;
     }
 
 
@@ -66,9 +66,9 @@ public class Customer {
     /**
      * Return the customer reference
      */
-    public int getReferenceNumber() {
+    public int getReference() {
 
-        return referenceNumber;
+        return reference;
     }
 
     /**
@@ -77,5 +77,13 @@ public class Customer {
      */
     public boolean isCustomerEqual(String email, String phoneNumber){
         return (this.email.equalsIgnoreCase(email) || this.phoneNumber.equalsIgnoreCase(phoneNumber));
+    }
+
+    public String toString(){
+        String str = "reference="+this.reference+System.lineSeparator();
+        str += "Name="+this.fName+" "+this.mName+" "+this.lName+System.lineSeparator();
+        str += "Email="+this.email+" "+"Phone="+phoneNumber+System.lineSeparator();
+
+        return str;
     }
 }

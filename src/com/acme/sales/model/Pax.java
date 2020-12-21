@@ -30,4 +30,8 @@ public class Pax {
         this.lName = lName;
         this.age = age;
     }
+
+    public String toString(){
+        return "Name="+this.fName+" "+this.mName+" "+this.lName+" Age="+this.age;
+    }
 }

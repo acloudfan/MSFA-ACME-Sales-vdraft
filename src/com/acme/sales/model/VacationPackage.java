@@ -78,11 +78,11 @@ public class VacationPackage {
     /**
      * Generate the reservations needed for the booking confirmation
      */
-    public ArrayList<Reservation>  generateReservationholders(){
+    public ArrayList<Reservation>  generateReservationholders() {
         ArrayList<Reservation>  generated = new ArrayList<Reservation>();
         // Iterate over the holders and create the clones
         for(Reservation r : reservationHolders){
-            generated.add(r.clone());
+            generated.add(r.createClone());
         }
         return generated;
     }
@@ -91,4 +91,16 @@ public class VacationPackage {
         return this.generateReservationholders();
     }
 
+    public String toString(){
+        String str = "Name="+this.name;
+        str += " Number nights="+this.numberOfNights+" Dest="+this.destination;
+        str += " retailPrice="+this.retailPrice;
+        str += "[";
+        for(Reservation r : reservationHolders){
+            str += "\t" + r ;
+        }
+        str += "]";
+
+        return str;
+    }
 }

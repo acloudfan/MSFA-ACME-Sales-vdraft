@@ -1,0 +1,51 @@
+
+@startuml
+
+actor SalesAgent
+boundary  SalesInterface
+entity  Payments
+note right of Payments
+    Entity for ALL payments
+end note
+control PaymentService
+note right PaymentService
+    Infrastucture Service
+end note
+control PaymentGateway
+note right PaymentGateway
+    Third party service for payment processing
+end note
+
+autonumber
+SalesAgent -> SalesInterface : Credit Card Payment
+SalesInterface -> Payments: process payment
+Payments -> PaymentService : process payment
+PaymentService -> PaymentGateway : process payment
+PaymentGateway -> PaymentService : payment confirmation
+note right
+    Third party service that processes the payment
+    Calls are <b>Synchronous</b>
+end note
+PaymentService -> Payments : payment confirmation
+
+Payments -> Payments : Raise PaymentConfirmed
+note left
+    This is where two things happen in an atomic fashion:
+
+    A) Payment information is added to the repository
+
+    B) Raises the event - <b>PaymentRecieved</b> with
+        Payload = <b>PaymentConfirmation</b>
+
+    The Handler for the <i>PaymentReceived</i> will trigger the <b>Reservation process</b>
+    The Handler is in the <b>BookingConfirmation</b>
+    Refer: <i>paymentreceived.activity.puml</i>
+end note
+
+
+title  Payment Event - Sequence\n\n
+footer \n\n Part of a course on Microservices \n Copyright 2021. For more info visit http://ACloudFan.com \n
+
+
+
+@enduml

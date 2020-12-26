@@ -39,6 +39,6 @@ public class PaymentGatewayProcessor implements PaymentGateway {
         // Transform the service to create the instance of PaymentGatewayTransactionDetails
 
         return new PaymentGatewayTransactionDetails("1234567890","John",
-                                                "Doe",new Date(),"CHARGE");
+                                                "Doe",new Date(),"CHARGE", 989.90);
     }
 }

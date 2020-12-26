@@ -24,4 +24,6 @@ public interface PaymentGateway {
      * Return the details of transaction in JSON format
      */
     public PaymentGatewayTransactionDetails getTransactionDetails(String transactionReference);
+
+
 }

@@ -1,4 +1,4 @@
-package com.acme.sales.model.utils.events;
+package com.acme.sales.model.utils.event;
 
 
 import java.util.Hashtable;

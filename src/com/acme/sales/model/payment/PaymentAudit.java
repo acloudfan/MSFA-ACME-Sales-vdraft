@@ -4,8 +4,8 @@ import com.acme.sales.model.repo.PaymentAuditRepo;
 import com.acme.sales.model.services.PaymentGateway;
 import com.acme.sales.model.services.PaymentGatewayTransaction;
 import com.acme.sales.model.services.PaymentGatewayTransactionDetails;
-import com.acme.sales.model.utils.events.Event;
-import com.acme.sales.model.utils.events.EventBus;
+import com.acme.sales.model.utils.event.Event;
+import com.acme.sales.model.utils.event.EventBus;
 
 import java.util.Date;
 
@@ -177,4 +177,8 @@ public class PaymentAudit {
         return 0;
     }
 
+    // Getters
+    public long getReference() {
+        return reference;
+    }
 }

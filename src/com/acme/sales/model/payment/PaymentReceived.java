@@ -1,6 +1,6 @@
 package com.acme.sales.model.payment;
 
-import com.acme.sales.model.utils.events.Event;
+import com.acme.sales.model.utils.event.Event;
 
 /**
  * Represents an event for "PaymentReceived"

@@ -4,7 +4,8 @@ import com.acme.sales.model.payment.PaymentAudit;
 
 public interface PaymentAuditRepo {
 
-    public  boolean   add(PaymentAudit paymentAudit);
+    // Returns the reference to the audit record
+    public  int   add(PaymentAudit paymentAudit);
 
     public PaymentAudit  get(String reference);
 

@@ -1,7 +1,7 @@
 package com.acme.sales.model.utils.events;
 
 import java.util.ArrayList;
-import com.acme.sales.model.utils.events.EventHandler;
+
 
 
 /**
@@ -41,7 +41,7 @@ public class EventDispatcher {
 
         for(EventHandler handler : handlers){
             handler.handle(event);
-        };
+        }
         return true;
     }
 }

@@ -4,6 +4,8 @@ import com.acme.sales.model.repo.PaymentAuditRepo;
 import com.acme.sales.model.services.PaymentGateway;
 import com.acme.sales.model.services.PaymentGatewayTransaction;
 import com.acme.sales.model.services.PaymentGatewayTransactionDetails;
+import com.acme.sales.model.utils.events.Event;
+import com.acme.sales.model.utils.events.EventBus;
 
 import java.util.Date;
 
@@ -14,8 +16,9 @@ import java.util.Date;
  */
 public class PaymentAudit {
 
-    private String   reference;
-    private int      bookingReference;
+    private int      reference;         // This is the reference for the audit record for the payment
+    private String   vendorReference;   // This is the reference returned by the payment gateway vndor
+    private int      bookingReference;  // This is the reference to the Booking for which payment audit is created
     private Date     transactionDate;
 
 
@@ -41,11 +44,12 @@ public class PaymentAudit {
     /**
      * This is to create an instance of the existing record
      */
-    public PaymentAudit(String reference, int bookingReference, Date transactionDate, String transactionType, double transactionAmount,
+    public PaymentAudit(int reference, String vendorReference, int bookingReference, Date transactionDate, String transactionType, double transactionAmount,
                         String cardHolderLastName, String cardHolderFirstName,
                         String   creditCardNumber, String   zipCode,  int      expiryMonth, int      expiryYear) {
 
         this.reference = reference;
+        this.vendorReference = vendorReference;
         this.bookingReference = bookingReference;
         this.transactionDate = transactionDate;
         this.transactionType = transactionType;
@@ -64,7 +68,8 @@ public class PaymentAudit {
     public PaymentAudit(int bookingReference, String transactionType, double transactionAmount, String cardHolderLastName, String cardHolderFirstName) {
 
         // MUST set to 0 to indicate that this is a new payment instance
-        this.reference = null;
+        this.reference = 0;
+        this.vendorReference = null;
         this.bookingReference = bookingReference;
         this.transactionAmount = transactionAmount;
         this.cardHolderLastName = cardHolderLastName;
@@ -77,7 +82,7 @@ public class PaymentAudit {
      * @return
      */
     public boolean isAlreadyProcessed(){
-        return (reference != null);
+        return (reference != 0);
     }
 
     /**
@@ -105,14 +110,17 @@ public class PaymentAudit {
         PaymentGatewayTransactionDetails  txnDetails = paymentGateway.getTransactionDetails(gatewayTxn.reference);
 
         // Set it up in the aggregate
-        this.reference = txnDetails.reference;
+        this.vendorReference = txnDetails.reference;
         this.transactionType = txnDetails.transactionType;
         this.transactionDate = txnDetails.transactionDate;
 
         // Aggregate Saves itself
-        if(paymentAuditRepo.add(this)){
+        this.reference = paymentAuditRepo.add(this);
+        if(this.reference > 0){
 
             // Raise the Event
+            Event event = new PaymentReceived(new PaymentConfirmation(reference, this.transactionDate));
+            EventBus.raise(event);
 
         } else {
             // There is a problem - someone need to be notified "Payment processed & Payment Audit could NOT be created !!!!

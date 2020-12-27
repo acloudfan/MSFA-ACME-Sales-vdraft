@@ -3,32 +3,35 @@
 
 actor SalesAgent
 boundary  SalesInterface
-entity  Payments
-note right of Payments
-    Entity for ALL payments
+entity  PaymentAudit
+note right of PaymentAudit
+    Entity for managin payment audit records
 end note
-control PaymentService
-note right PaymentService
-    Infrastucture Service
-end note
+
 control PaymentGateway
 note right PaymentGateway
+    Infrastucture Service
+end note
+
+control PaymentService
+note right PaymentService
     Third party service for payment processing
 end note
 
 autonumber
 SalesAgent -> SalesInterface : Credit Card Payment
-SalesInterface -> Payments: process payment
-Payments -> PaymentService : process payment
-PaymentService -> PaymentGateway : process payment
-PaymentGateway -> PaymentService : payment confirmation
+SalesInterface -> PaymentAudit: process payment
+PaymentAudit -> PaymentGateway : process payment
+PaymentGateway -> PaymentService : process payment
+PaymentService -> PaymentGateway  : payment confirmation
 note right
     Third party service that processes the payment
     Calls are <b>Synchronous</b>
 end note
-PaymentService -> Payments : payment confirmation
 
-Payments -> Payments : Raise PaymentConfirmed
+PaymentService -> PaymentAudit : payment confirmation
+
+PaymentAudit -> PaymentAudit : Raise PaymentConfirmed
 note left
     This is where two things happen in an atomic fashion:
 
@@ -45,7 +48,5 @@ end note
 
 title  Payment Event - Sequence\n\n
 footer \n\n Part of a course on Microservices \n Copyright 2021. For more info visit http://ACloudFan.com \n
-
-
 
 @enduml

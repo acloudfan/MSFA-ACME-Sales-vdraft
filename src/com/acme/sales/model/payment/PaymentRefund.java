@@ -3,13 +3,13 @@ package com.acme.sales.model.payment;
 import com.acme.sales.model.utils.events.Event;
 
 /**
- * Represents an event for "PaymentReceived"
+ * Represents an event for "PaymentCancelled"
  */
 
-public class PaymentReceived extends Event {
+public class PaymentRefund extends Event {
 
-    public PaymentReceived(PaymentAudit paymentAudit ) {
-        super("PaymentReceived", paymentAudit);
+    public PaymentRefund(PaymentAudit paymentAudit ) {
+        super("PaymentCancelled", paymentAudit);
     }
 
     public PaymentAudit getPaymentAudit(){

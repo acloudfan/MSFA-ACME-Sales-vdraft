@@ -16,7 +16,7 @@ import java.util.Date;
  */
 public class PaymentAudit {
 
-    private int      reference;         // This is the reference for the audit record for the payment
+    private long     reference;         // This is the reference for the audit record for the payment
     private String   vendorReference;   // This is the reference returned by the payment gateway vndor
     private int      bookingReference;  // This is the reference to the Booking for which payment audit is created
     private Date     transactionDate;
@@ -34,6 +34,9 @@ public class PaymentAudit {
     private int      expiryMonth;
     private int      expiryYear;
 
+    // used for refund - related to original reference
+    private long      relatedReference;
+
 
     /**
      * This aggregate is aware of the Repository
@@ -44,9 +47,10 @@ public class PaymentAudit {
     /**
      * This is to create an instance of the existing record
      */
-    public PaymentAudit(int reference, String vendorReference, int bookingReference, Date transactionDate, String transactionType, double transactionAmount,
+    public PaymentAudit(long reference, String vendorReference, int bookingReference, Date transactionDate, String transactionType, double transactionAmount,
                         String cardHolderLastName, String cardHolderFirstName,
-                        String   creditCardNumber, String   zipCode,  int      expiryMonth, int      expiryYear) {
+                        String   creditCardNumber, String   zipCode,  int      expiryMonth, int      expiryYear,
+                        long      relatedReference) {
 
         this.reference = reference;
         this.vendorReference = vendorReference;
@@ -60,6 +64,7 @@ public class PaymentAudit {
         this.zipCode = zipCode;
         this.expiryMonth = expiryMonth;
         this.expiryYear = expiryYear;
+        this.relatedReference = relatedReference;
     }
 
     /**
@@ -87,14 +92,16 @@ public class PaymentAudit {
 
     /**
      * Process Payment
-     * This function MUST be atomic - This implementation is NOT atomic as it is for demonstration purposes only
+     * This function MUST be atomic
+     *
+     * NOTE: This implementation is NOT atomic as it is for simplicity/demonstration purposes only
      */
-    public boolean processPayment(String creditCardNumber,  int expiryMonth, int expiryYear, String zipCode, double amount, PaymentGateway paymentGateway) {
+    public long processPayment(String creditCardNumber,  int expiryMonth, int expiryYear, String zipCode, double amount, PaymentGateway paymentGateway) {
 
         if(isAlreadyProcessed()){
             // This represents an already processed payment
             // throw an Exception
-            return false;
+            return -1;
         }
 
         // Save the credit card information in the audit
@@ -119,13 +126,55 @@ public class PaymentAudit {
         if(this.reference > 0){
 
             // Raise the Event
-            Event event = new PaymentReceived(new PaymentConfirmation(reference, this.transactionDate));
+            Event event = new PaymentReceived(this);
             EventBus.raise(event);
+
+            return this.reference;
 
         } else {
             // There is a problem - someone need to be notified "Payment processed & Payment Audit could NOT be created !!!!
+
+            return -1;
+        }
+    }
+
+    /**
+     * Process Refund
+     * This function MUST be atomic
+     *
+     * NOTE: This implementation is NOT atomic as it is for simplicity/demonstration purposes only
+     *
+     * May be invoked ONLY for an existing payment i.e., there is a valid vendor reference
+     */
+    public long processRefund(double amount, PaymentGateway paymentGateway) {
+
+        // Check if valid vendorReference
+        if(!isAlreadyProcessed()){
+            // throw an exception
+            return -1;
         }
 
-        return true;
+        // Refund amount must be < refund requested
+        if(amount > this.transactionAmount){
+            return -1;
+        }
+
+        // 1. Create a clone of this object
+        //    newPaymentAudit
+        //    newPaymentAudit.relatedReference = this.reference
+
+        // 2. Execute the processRefund on paymentGateway
+
+        // 3. Update the PaymentAudit object
+        //    Set the received transaction details on newPaymentAudit
+
+        // 4. Save the newPaymentAudit via Repo
+
+        // 5. If Successful - raise the PaymentRefund event
+
+        // 6. If Failed - someone need to be informed and action needs to be taken
+
+        return 0;
     }
+
 }

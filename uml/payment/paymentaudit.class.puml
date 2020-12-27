@@ -1,0 +1,51 @@
+@startuml
+
+package com.acme.sales.model.payment {
+    class PaymentAudit <<Entity>> {
+        + int :  processPayment()
+        + int :  processRefund()
+        ==
+        <<Domain Event>> PaymentRefund
+        <<Domain Event>> PaymentCancelled
+    }
+    note top of PaymentAudit : Represents the Payment Audit record as required by a regulation
+    note left of PaymentAudit::"processPayment()"
+        Invoked for initiating the payment process
+    end note
+    note left of PaymentAudit::"processRefund()"
+        Invoked for initiating the refund process
+    end note
+
+    class PaymentReceived <<Domain Event>> {
+        + PaymentAudit : getPaymentAudit()
+    }
+    note left of PaymentReceived
+        Represents the event when
+        payment processed successfully
+    end note
+
+    class PaymentRefund <<Domain Event>> {
+        + PaymentAudit : getPaymentAudit()
+    }
+    note right of PaymentRefund
+        Represents the event when
+        refund processed successfully
+    end note
+}
+
+PaymentAudit -- PaymentReceived : raises
+PaymentAudit -- PaymentRefund : raises
+
+PaymentReceived "1" --> "1" PaymentAudit : has
+PaymentRefund "1" --> "1" PaymentAudit  : has
+
+package com.acme.sales.model.repo{
+    interface PaymentAuditRepo {
+        + int : add(PaymentAudit)
+        + PaymentAudit : get(int reference)
+    }
+}
+
+title Payment Audit - Classes\n\n\n\n
+
+@enduml

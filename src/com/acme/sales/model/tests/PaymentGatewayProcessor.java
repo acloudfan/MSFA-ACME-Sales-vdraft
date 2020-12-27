@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class PaymentGatewayProcessor implements PaymentGateway {
     @Override
-    public PaymentGatewayTransaction processPayment(String creditCardNumber, int expiryMonth, int expiryYear, String zipCode) {
+    public PaymentGatewayTransaction processPayment(String creditCardNumber, int expiryMonth, int expiryYear, String zipCode, double amount) {
 
         // This is where the code can be put in for interacting with a 3rd party service
 
@@ -39,6 +39,6 @@ public class PaymentGatewayProcessor implements PaymentGateway {
         // Transform the service to create the instance of PaymentGatewayTransactionDetails
 
         return new PaymentGatewayTransactionDetails("1234567890","John",
-                                                "Doe",new Date(),"CHARGE");
+                                                "Doe",new Date(),"CHARGE", 908.99);
     }
 }

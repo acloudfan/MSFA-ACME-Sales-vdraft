@@ -12,5 +12,6 @@ public class PaymentGatewayTransaction {
         this.reference = reference;
         this.result = result;
         this.errorDetails = errorDetails;
+
     }
 }

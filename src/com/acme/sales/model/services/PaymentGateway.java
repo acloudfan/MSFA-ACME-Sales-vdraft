@@ -11,7 +11,7 @@ public interface PaymentGateway {
      * This is to process the payment with the credit card provided by the customer
      * @return  the reference code -1 if payment declined
      */
-    public PaymentGatewayTransaction processPayment(String creditCardNumber, int expiryMonth, int expiryYear, String zipCode);
+    public PaymentGatewayTransaction processPayment(String creditCardNumber, int expiryMonth, int expiryYear, String zipCode, double amount);
 
     /**
      * Customer may cancel the purchase and hence will be refunded the amount paid.

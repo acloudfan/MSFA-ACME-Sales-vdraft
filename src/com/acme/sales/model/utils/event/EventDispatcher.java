@@ -19,12 +19,17 @@ public class EventDispatcher {
         this.eventName = eventName;
     }
 
+    /**
+     * Registers the handler
+     */
     public boolean register(EventHandler handler){
-        // Make sure that Hanlder is not registered already - otherwise you have duplication issues !!!
+
+        // 1. Make sure that Hanlder is not registered already - otherwise you have duplication issues !!!
         if(handlers.contains(handler)){
             return false;
         }
 
+        // 2. Add the handler to the collection
         return handlers.add(handler);
     }
 
@@ -37,11 +42,15 @@ public class EventDispatcher {
      * @param event
      */
     public boolean dispatch(Event event){
+        // 1. Check if handlers exist
         if(handlers.size() == 0) return false;
 
+        // 2. Loop through the handlers and invoke handle function
         for(EventHandler handler : handlers){
             handler.handle(event);
         }
+
+        // 3. Return true to indicate action was scuccessful
         return true;
     }
 }

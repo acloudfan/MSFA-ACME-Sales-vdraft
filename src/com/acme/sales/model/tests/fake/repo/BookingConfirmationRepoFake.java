@@ -15,6 +15,10 @@ public class BookingConfirmationRepoFake implements BookingConfirmationRepo {
 
     @Override
     public BookingConfirmation add(BookingConfirmation bookingConfirmation) {
+
+        // Simulate upsert - by removing the booking confirmation if it already exist
+        this.remove(bookingConfirmation.getReference());
+
         collection.add(bookingConfirmation);
         return bookingConfirmation;
     }

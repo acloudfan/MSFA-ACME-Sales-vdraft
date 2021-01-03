@@ -19,6 +19,9 @@ public class HotelReservation extends Reservation {
     public boolean reserve(){
         // Successful reservation will set the reservationReference
         reservationReference =  "fake-hotel-reservation-ref";
+
+        // At this time the status will be CONFIRMED
+
         return true;
     }
 

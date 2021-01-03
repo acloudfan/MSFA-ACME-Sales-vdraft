@@ -5,7 +5,7 @@ actor SalesAgent
 boundary  SalesInterface
 entity  PaymentAudit
 note right of PaymentAudit
-    Entity for managin payment audit records
+    Entity for managing payment audit records
 end note
 
 control PaymentGateway
@@ -29,9 +29,9 @@ note right
     Calls are <b>Synchronous</b>
 end note
 
-PaymentService -> PaymentAudit : payment confirmation
+PaymentGateway -> PaymentAudit : payment confirmation
 
-PaymentAudit -> PaymentAudit : Raise PaymentConfirmed
+PaymentAudit -> PaymentAudit : Raise PaymentReceived event
 note left
     This is where two things happen in an atomic fashion:
 
@@ -42,11 +42,11 @@ note left
 
     The Handler for the <i>PaymentReceived</i> will trigger the <b>Reservation process</b>
     The Handler is in the <b>BookingConfirmation</b>
-    Refer: <i>paymentreceived.activity.puml</i>
+    Refer: <i>uml/booking/paymentreceieved.handler.activity.puml</i>
 end note
 
 
-title  Payment Event - Sequence\n\n
+title  Payment Received Event - Sequence\n\n
 footer \n\n Part of a course on Microservices \n Copyright 2021. For more info visit http://ACloudFan.com \n
 
 @enduml

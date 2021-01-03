@@ -122,7 +122,7 @@ abstract public  class Reservation {
 
     @Override
     public String toString(){
-        String str = "reservationType="+this.reservationType+" "+"Provider="+this.provider;
+        String str = "reservationType="+this.reservationType+" "+"Provider="+this.provider+" Reservation Reference: "+ reservationReference;
         return str;
     }
 }

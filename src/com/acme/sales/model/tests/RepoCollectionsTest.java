@@ -38,6 +38,7 @@ public class RepoCollectionsTest {
         generateVacationPackage();
         generateProposal();
         generateBookingConfirmation();
+        generateFullBookingConfirmation();
     }
 
     /**
@@ -116,31 +117,26 @@ public class RepoCollectionsTest {
         bookingConfirmationRepo = new BookingConfirmationRepoFake();
 
         Proposal proposal = proposalRepo.get(5000);
-        BookingConfirmation bookingConfirmation = new BookingConfirmation(6000, proposal);
+        BookingConfirmation bookingConfirmation = new BookingConfirmation(6000, proposal, bookingConfirmationRepo);
         bookingConfirmationRepo.add(bookingConfirmation);
     }
 
+
     /**
      * Test function
-     * @param args
      */
-    public static void main(String[] args){
+    public static void generateFullBookingConfirmation() {
 
         // =======================================================
         // Customer calls in - Sales agent uses customer's phone number to pull customer information
-        System.out.println("======= Customer calls - Sales agent pulls the cust info using phone number ======");
         Customer customer = customerRepo.get(null, "2135551212");
-        System.out.println("Customer="+customer);
 
         // ========================================================
         // Sales agent pull info for Vacation packages & susgests "3 Nights bahamas package"
-        System.out.println("\n======= Sales agent suggests the '3 Nights Bahamas' package ======");
         VacationPackage vacationPackage = vacationPackageRepo.get("BAH3NIGHTHOTELAIR");
-        System.out.println("Vacation Package="+vacationPackage);
 
         // ========================================================
         // Customer likes the package so - Sales agent creates the proposal
-        System.out.println("\n======= Customer likes so Agent created the Proposal ======");
         Proposal proposal = new Proposal(5002, 1000,vacationPackage,new Date());
 
 
@@ -163,14 +159,14 @@ public class RepoCollectionsTest {
 
         proposalRepo.add(proposal);
 
-        System.out.println("Proposal="+proposal);
+//        System.out.println("Proposal="+proposal);
 
         // ============================================================
         // Sales agent MAY create additional proposals but customer commits to the proposal
         // so Sales agent creates the Booking Confirmation with that proposal
-        System.out.println("\n======= Customer commits to proposal to a Booking Confirmation is created ======");
-        BookingConfirmation bookingConfirmation = new BookingConfirmation(928, proposal);
+//        System.out.println("\n======= Customer commits to proposal to a Booking Confirmation is created ======");
+        BookingConfirmation bookingConfirmation = new BookingConfirmation(928, proposal, bookingConfirmationRepo);
         bookingConfirmationRepo.add(bookingConfirmation);
-        System.out.println("Booking Confirmation (PENDING_PAYMENT) = "+bookingConfirmation);
+//        System.out.println("Booking Confirmation (PENDING_PAYMENT) = "+bookingConfirmation);
     }
 }

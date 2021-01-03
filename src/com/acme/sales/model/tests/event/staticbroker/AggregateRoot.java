@@ -1,4 +1,4 @@
-package com.acme.sales.model.tests.event.framework;
+package com.acme.sales.model.tests.event.staticbroker;
 
 import com.acme.sales.model.utils.event.EventBus;
 
@@ -16,9 +16,13 @@ public class AggregateRoot {
      * This throws an event
      */
     public void someAction(){
+
         // Logic that carries out the process steps
         // Change in state happens successfully
 
-        EventBus.raise(new SomeActionEvent("this is the payload"));
+        System.out.println(this.getClass() + " : Carried out the action Successfully.");
+
+        // Now raise the event
+        EventBus.raise(new SomeAction("This is the payload"));
     }
 }

@@ -41,7 +41,7 @@ public class PaymentAudit {
     /**
      * This aggregate is aware of the Repository
      */
-    private static PaymentAuditRepo     paymentAuditRepo;
+    private  PaymentAuditRepo     paymentAuditRepo;
 
 
     /**
@@ -50,7 +50,7 @@ public class PaymentAudit {
     public PaymentAudit(long reference, String vendorReference, int bookingReference, Date transactionDate, String transactionType, double transactionAmount,
                         String cardHolderLastName, String cardHolderFirstName,
                         String   creditCardNumber, String   zipCode,  int      expiryMonth, int      expiryYear,
-                        long      relatedReference) {
+                        long      relatedReference, PaymentAuditRepo paymentAuditRepo) {
 
         this.reference = reference;
         this.vendorReference = vendorReference;
@@ -65,21 +65,21 @@ public class PaymentAudit {
         this.expiryMonth = expiryMonth;
         this.expiryYear = expiryYear;
         this.relatedReference = relatedReference;
+        this.paymentAuditRepo = paymentAuditRepo;
     }
 
     /**
      * This creates an instance of the payment audit that is used for processing the payment
      */
-    public PaymentAudit(int bookingReference, String transactionType, double transactionAmount, String cardHolderLastName, String cardHolderFirstName) {
+    public PaymentAudit(int bookingReference, String transactionType, PaymentAuditRepo paymentAuditRepo) {
 
         // MUST set to 0 to indicate that this is a new payment instance
         this.reference = 0;
         this.vendorReference = null;
         this.bookingReference = bookingReference;
-        this.transactionAmount = transactionAmount;
-        this.cardHolderLastName = cardHolderLastName;
-        this.cardHolderFirstName = cardHolderFirstName;
         this.transactionType = transactionType;
+
+        this.paymentAuditRepo = paymentAuditRepo;
     }
 
     /**
@@ -96,7 +96,9 @@ public class PaymentAudit {
      *
      * NOTE: This implementation is NOT atomic as it is for simplicity/demonstration purposes only
      */
-    public long processPayment(String creditCardNumber,  int expiryMonth, int expiryYear, String zipCode, double amount, PaymentGateway paymentGateway) {
+    public long processPayment(String creditCardNumber,  int expiryMonth, int expiryYear, String zipCode, double amount,
+                               String cardHolderLastName, String cardHolderFirstName,
+                               PaymentGateway paymentGateway) {
 
         if(isAlreadyProcessed()){
             // This represents an already processed payment
@@ -105,6 +107,8 @@ public class PaymentAudit {
         }
 
         // Save the credit card information in the audit
+        this.cardHolderFirstName = cardHolderFirstName;
+        this.cardHolderLastName = cardHolderLastName;
         this.creditCardNumber = creditCardNumber;
         this.expiryYear = expiryYear;
         this.expiryMonth = expiryMonth;
@@ -180,5 +184,13 @@ public class PaymentAudit {
     // Getters
     public long getReference() {
         return reference;
+    }
+
+    public int getBookingReference() {
+        return bookingReference;
+    }
+
+    public Date getTransactionDate() {
+        return transactionDate;
     }
 }

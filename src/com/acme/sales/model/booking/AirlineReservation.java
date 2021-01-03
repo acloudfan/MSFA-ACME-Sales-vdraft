@@ -25,6 +25,7 @@ public class AirlineReservation extends Reservation {
     public boolean reserve(){
         // Successful reservation will set the reservationReference
         reservationReference =  "fake-airline-reservation-ref";
+
         return true;
     }
 

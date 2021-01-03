@@ -8,8 +8,11 @@ import com.acme.sales.model.utils.event.Event;
 
 public class PaymentReceived extends Event {
 
+    static public  final String EVENT_PAYMENT_RECEIVED = "PaymentReceived";
+
+
     public PaymentReceived(PaymentAudit paymentAudit ) {
-        super("PaymentReceived", paymentAudit);
+        super(EVENT_PAYMENT_RECEIVED, paymentAudit);
     }
 
     public PaymentAudit getPaymentAudit(){

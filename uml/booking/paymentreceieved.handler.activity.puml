@@ -1,0 +1,47 @@
+@startuml
+(*)  --> "Payment Received <<Domain Event>>"
+note left
+    <b>Handled</b> in the Booking Confirmation <<Aggregate>>
+end note
+
+--> ==Reservations==
+
+==Reservations== --> ReserveHotel
+--> ReserveHotelInfrastructureService
+--> ==ReservationsDone==
+
+==Reservations== --> ReserveAirline
+--> ReserveAirlineInfrastructureService
+--> ==ReservationsDone==
+
+
+==Reservations== --> ReserveRentalCar
+--> RentalCarInfrastructureService
+
+
+--> ==ReservationsDone==
+note left
+    When the service returns a response, it may be SUCCESS or Failed
+    Raise Reservation Done Event
+end note
+
+--> ReservationMade
+note left
+    <b>Handler</b> that receives all ReservationMade
+    No action will be taken by the action until all
+    ReservationDone event receieved
+end note
+
+--> if "All Reservation SUCCESS" then
+        ->[Yes]  "Booking Confirmed"
+        note right : Events raised for other parts of the domain to handle
+        -->(*)
+    else
+        ->[No]   "Booking Failed"
+-->(*)
+
+title  Payment Received Event - Handler \n \n
+footer \n\n\n\n\n\n Part of a course on Microservices \n Copyright @ 2021. For more info visit http://ACloudFan.com \n
+
+
+@enduml

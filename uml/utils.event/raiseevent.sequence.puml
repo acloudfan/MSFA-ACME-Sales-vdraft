@@ -3,19 +3,24 @@
 autonumber
 
 entity  AggregateRoot
-collections EventBus
+AggregateRoot -> Event : create an instance of event
+
+control EventBus
 collections EventDispatcher
+control EventHandler
 
 group raise event
 
+
     AggregateRoot -> EventBus : raise(Event)
+
 
     EventBus -> EventBus : find the dispatcher for "event name"
 
     alt dispatcher not found
         EventBus -> AggregateRoot : return false (no action taken)
     else dispatcher found
-        autonumber 3
+        autonumber 4
         EventBus -> EventDispatcher : dispatch(Event)
         loop number-of-handler times
             EventDispatcher -> EventHandler : handle(Event)

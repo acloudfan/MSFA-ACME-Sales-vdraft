@@ -4,6 +4,7 @@ package com.acme.sales.model.booking;
 import com.acme.sales.model.Pax;
 import com.acme.sales.model.Proposal;
 import com.acme.sales.model.payment.PaymentConfirmation;
+import com.acme.sales.model.repo.BookingConfirmationRepo;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,6 +61,11 @@ public class BookingConfirmation {
     private ArrayList<Pax>  paxs;
 
     /**
+     * Hold a reference to Repo
+     */
+    private BookingConfirmationRepo  bookingConfirmationRepo;
+
+    /**
      * The vacation package may have multiple parts such as Hotel, Car, Air tickets ...
      * The objects representing the reservations are added to this list
      */
@@ -76,7 +82,7 @@ public class BookingConfirmation {
     /**
      * Instance is created from the proposal
      */
-    public BookingConfirmation(Proposal proposal) {
+    public BookingConfirmation(Proposal proposal, BookingConfirmationRepo bookingConfirmationRepo) {
         this.status = BookingConfirmationState.PENDING_PAYMENT;
         // Setup the reference to proposal
         proposalReference = proposal.getReference();
@@ -87,6 +93,8 @@ public class BookingConfirmation {
         // Get the reservation holders
         // Thes cannot be changed anymore as the customer has committed to the providers and dates
         reservations = proposal.generateReservations();
+
+        this.bookingConfirmationRepo = bookingConfirmationRepo;
     }
 
     /**
@@ -94,12 +102,12 @@ public class BookingConfirmation {
      * @param reference
      * @param proposal
      */
-    public BookingConfirmation(int reference, Proposal proposal){
-        this(proposal);
+    public BookingConfirmation(int reference, Proposal proposal,  BookingConfirmationRepo bookingConfirmationRepo){
+        this(proposal, bookingConfirmationRepo);
         this.reference = reference;
     }
 
-    public BookingConfirmation(int reference, int proposalReference, int customerReference, ArrayList<Reservation> reservations){
+    public BookingConfirmation(int reference, int proposalReference, int customerReference, ArrayList<Reservation> reservations,  BookingConfirmationRepo bookingConfirmationRepo){
         // TBD
     }
 
@@ -108,7 +116,7 @@ public class BookingConfirmation {
      * @param paymentReference
      * @param date
      */
-    public void setPaymentConfirmationReference(int paymentReference, Date date) {
+    public void setPaymentConfirmationReference(long paymentReference, Date date) {
         if(paymentConfirmation == null){
             paymentConfirmation = new PaymentConfirmation(paymentReference, date);
         } else {
@@ -119,7 +127,7 @@ public class BookingConfirmation {
         // Trigger the process of Provider Reservations
     }
 
-    public void setCancellationReference(int cancellationReference, Date date){
+    public void setCancellationReference(long cancellationReference, Date date){
         if(paymentConfirmation == null){
             throw new RuntimeException("Payment Confirmation is not there to cancel !!!");
         }
@@ -128,6 +136,29 @@ public class BookingConfirmation {
 
         // Trigger the cancellation of ALL Provider Reservations
     }
+
+    /**
+     * This is where the reservation is carried out - synchronously
+     *
+     * NOTE: for simplicity this implementation shows the processing as sequential - in reality it can be parallel & asynchronous
+     */
+    public void reserve(){
+        this.status = BookingConfirmationState.RESERVATION_IN_PROGRESS;
+
+        // Call reserve on each
+        for(Reservation reservation : reservations){
+            // Carries out the reservation for each part of the vacation package
+            boolean result = reservation.reserve();
+        }
+
+        // Update the Booking confirmation - notice no error checking !!!
+        bookingConfirmationRepo.add(this);
+
+        // Assumption - All booking reservations were confirmed by the provider
+
+        this.status = BookingConfirmationState.CONFIRMED;
+    }
+
 
     public String toString(){
         String str = "Booking Reference="+this.reference+" Proposal reference="+this.proposalReference+" Customer Reference="+this.customerReference;

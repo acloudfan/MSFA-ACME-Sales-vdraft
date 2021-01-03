@@ -2,26 +2,29 @@
 
 autonumber
 
-control ApplicationLayer
-collections EventBus
+control InterestedComponent
+control EventHandler
+control EventBus
+collections EventDispatcher
 
 group register
 
-    ApplicationLayer -> EventBus : register(event name, handler)
+    InterestedComponent -> EventHandler : create an instance (handler)
+    InterestedComponent -> EventBus : register(event name, handler)
 
     EventBus -> EventBus : find the dispatcher for "event name"
 
     alt dispatcher already exist
         EventBus -> EventDispatcher : register the handler
         EventDispatcher -> EventBus : true
-        EventBus -> ApplicationLayer : true (handler registered)
+        EventBus -> InterestedComponent : true (handler registered)
     else dispatcher not found
-        autonumber 3
+        autonumber 4
         EventBus -> EventDispatcher : create a dispatcher
         EventBus -> EventBus : register dispatcher for "event name"
         EventBus -> EventDispatcher : register the handler
         EventDispatcher -> EventBus : true
-        EventBus -> ApplicationLayer : true (handler registered)
+        EventBus -> InterestedComponent : true (handler registered)
     end
 end
 

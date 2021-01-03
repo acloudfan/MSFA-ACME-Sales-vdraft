@@ -7,10 +7,10 @@ import java.util.Date;
  */
 public class PaymentConfirmation {
     /** Reference number for payment**/
-    private int  referenceNumberPayment = -1;
+    private long  referenceNumberPayment = -1;
 
     /** Reference number for cancellation**/
-    private int  referenceNumberCancellation = -1;
+    private long  referenceNumberCancellation = -1;
 
     /** Date processed **/
     /** This will hold the payment date OR cancellation date **/
@@ -21,7 +21,7 @@ public class PaymentConfirmation {
      * @param referenceNumberPayment
      * @param processedDate
      */
-    public PaymentConfirmation(int referenceNumberPayment, Date processedDate) {
+    public PaymentConfirmation(long referenceNumberPayment, Date processedDate) {
         this.referenceNumberPayment = referenceNumberPayment;
         this.processedDate = processedDate;
     }
@@ -30,7 +30,7 @@ public class PaymentConfirmation {
      * Create by the Payment Gateway service when the payment is fully refunded
      * E.g., when customer cancels the booking
      */
-    public PaymentConfirmation(PaymentConfirmation existingPaymentConfirmation, int referenceNumberCancellation, Date processedDate){
+    public PaymentConfirmation(PaymentConfirmation existingPaymentConfirmation, long referenceNumberCancellation, Date processedDate){
         // If existing payment confirmation is not paid then throw an exception
         // This should be replaced with an appropriate service defined exception - done this way to provide a simplified view
         if(!existingPaymentConfirmation.isPaid()) throw new RuntimeException("Can't create with non paid Payment confirmation !!");
@@ -39,7 +39,7 @@ public class PaymentConfirmation {
         newPaymentConfirmation.referenceNumberCancellation = referenceNumberCancellation;
     }
 
-    public void setReferenceNumberCancellation(int referenceNumberCancellation, Date date) {
+    public void setReferenceNumberCancellation(long referenceNumberCancellation, Date date) {
         this.referenceNumberCancellation = referenceNumberCancellation;
         this.processedDate = date;
     }

@@ -17,8 +17,13 @@ public class EventBus {
      * @return - false if no dispatcher found
      */
     public static boolean raise(Event event){
+        // 1. Get the dispatcher for the event.name
         EventDispatcher  eventDispatcher = eventDispatchers.get(event.name);
+
+        // 2. Return false if no dispatcher i.e., handler
         if(eventDispatcher == null) return false;
+
+        // 3. Dispatch the event
         return eventDispatcher.dispatch(event);
     }
 
@@ -27,12 +32,16 @@ public class EventBus {
      * @return false = Does not indicate an error; just that handler is already registered
      */
     public static boolean register(String eventName, EventHandler  handler){
+
+        // 1. Find the dispatcher for the given eventName
         EventDispatcher  eventDispatcher = eventDispatchers.get(eventName);
-        // Possible that this is the first dispatcher
+
+        // 2. If dispatcher not found then create the dispatcher
         if(eventDispatcher == null){
             eventDispatcher = new EventDispatcher(eventName);
             eventDispatchers.put(eventName,eventDispatcher);
         }
+        // 3. Register the handler with the dispatcher
         return eventDispatcher.register(handler);
     }
 
@@ -48,3 +57,8 @@ public class EventBus {
         return eventDispatcher.deregister(handler);
     }
 }
+
+
+
+
+

@@ -127,6 +127,13 @@ public class BookingConfirmation {
         // Trigger the process of Provider Reservations
     }
 
+    public void setStatus(BookingConfirmationState status) {
+
+        // MUST implement the business logic to ensure that state transition is valid
+
+        this.status = status;
+    }
+
     public void setCancellationReference(long cancellationReference, Date date){
         if(paymentConfirmation == null){
             throw new RuntimeException("Payment Confirmation is not there to cancel !!!");
@@ -156,7 +163,8 @@ public class BookingConfirmation {
 
         // Assumption - All booking reservations were confirmed by the provider
 
-        this.status = BookingConfirmationState.CONFIRMED;
+        // this.status = BookingConfirmationState.CONFIRMED;
+        bookingConfirmationRepo.updateState(this, BookingConfirmationState.CONFIRMED);
     }
 
 

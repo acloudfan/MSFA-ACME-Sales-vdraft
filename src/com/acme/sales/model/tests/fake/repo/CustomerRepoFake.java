@@ -2,6 +2,7 @@ package com.acme.sales.model.tests.fake.repo;
 
 import com.acme.sales.model.Customer;
 import com.acme.sales.model.repo.CustomerRepo;
+import com.acme.sales.model.utils.event.messaging.MessagingService;
 
 import java.util.ArrayList;
 
@@ -9,6 +10,8 @@ public class CustomerRepoFake implements CustomerRepo {
 
     // In memory collection to simulate the database
     private ArrayList<Customer>  collection = new ArrayList<>();
+
+
 
 
     @Override
@@ -73,4 +76,6 @@ public class CustomerRepoFake implements CustomerRepo {
 
         return false;
     }
+
+
 }

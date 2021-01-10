@@ -1,6 +1,7 @@
 package com.acme.sales.model.repo;
 
 import com.acme.sales.model.booking.BookingConfirmation;
+import com.acme.sales.model.utils.event.messaging.MessagingService;
 
 import java.util.ArrayList;
 
@@ -30,8 +31,20 @@ public interface BookingConfirmationRepo {
     public ArrayList<BookingConfirmation> getByCustomer(int customerReference, int number);
 
     /**
+     * Change the Status
+     *
+     * This MUST trigger the event BookingConfirmed
+     */
+    public void updateState(BookingConfirmation  bookingConfirmation, BookingConfirmation.BookingConfirmationState bookingConfirmationState);
+
+    /**
      * Remove
      */
     public boolean remove(int reference);
+
+    /**
+     * Setup messaging service
+     */
+    public void setupMessagingService(MessagingService messagingService);
 
 }

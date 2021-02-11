@@ -39,7 +39,7 @@ public class Proposal {
     private int paxCount;
 
     // Pax Details
-    private ArrayList<Pax> passengers;
+    private ArrayList<Pax> paxs = new ArrayList<>();
 
     // Customer instructions
     // Agents like to put notes on each proposal that other agents may read
@@ -69,7 +69,7 @@ public class Proposal {
 
 
     /**
-     *
+     * Existing proposal will have a reference
      */
     public Proposal(int  reference, int customerReference,  VacationPackage vacationPackage, Date createdDate) {
         this.reference = reference;
@@ -77,6 +77,42 @@ public class Proposal {
         this.createdDate = createdDate;
         this.vacationPackage = vacationPackage;
         this.reservations = vacationPackage.generateReservationholders();
+    }
+
+    /**
+     * New proposal will have reference = 0
+     */
+    public Proposal(int customerReference,  VacationPackage vacationPackage) {
+        this(0, customerReference, vacationPackage, new Date());
+    }
+
+    /**
+     * This will create an empty vacation package
+     * This is JUST for enabling unit testing
+     */
+    public Proposal(int customerReference,  String vacationPackageId) {
+        this(customerReference,new VacationPackage(vacationPackageId,"THIS IS FAKE Package for testing",3,VacationPackage.vacationPackageType.RESORT,999.99,new Date(01,01,2050),true,false,"Fake location",new ArrayList<>()));
+    }
+
+    public Proposal(int  reference, int customerReference,  String vacationPackageId) {
+        this(reference, customerReference,new VacationPackage(vacationPackageId,"THIS IS FAKE Package for testing",3,VacationPackage.vacationPackageType.RESORT,999.99,new Date(01,01,2050),true,false,"Fake location",new ArrayList<>()), new Date());
+    }
+
+    /**
+     * Adds a PAX
+     * Returns false if pax already exist
+     */
+    public boolean addPax(String fname, String mname, String lname, int age){
+        for(Pax passenger : this.paxs){
+            if(passenger.fName.equalsIgnoreCase(fname) &&
+               passenger.lName.equalsIgnoreCase(lname) &&
+                    passenger.age == age){
+                return false;
+            }
+        }
+        Pax newPax = new Pax(fname, mname, lname, age);
+        paxs.add(newPax);
+        return true;
     }
 
     /**
@@ -148,10 +184,40 @@ public class Proposal {
         return generated;
     }
 
+    public void setReference(int reference) {
+        this.reference = reference;
+    }
+
+    public void setCustomerReference(int customerReference) {
+        this.customerReference = customerReference;
+    }
+
+    public VacationPackage getVacationPackage() {
+        return vacationPackage;
+    }
+
+    public void setVacationPackage(VacationPackage vacationPackage) {
+        this.vacationPackage = vacationPackage;
+    }
+
+    public ArrayList<Pax> getPassengers() {
+        return paxs;
+    }
+
+    public void setPassengers(ArrayList<Pax> paxs) {
+        this.paxs = paxs;
+    }
 
     public String toString(){
         String str = "Proposal Reference="+this.reference+" CustomerReference="+this.customerReference+" Date="+this.createdDate;
         str += " Vacation Package=["+this.vacationPackage.getName()+"]";
+
+        // Add pax
+        str += "[";
+        for(Pax pax : this.paxs){
+            str += pax + ",\t";//+ "{ Dates= "+r.getStartDate()+" to "+r.getEndDate()+"}" ;
+        }
+        str += "]";
 
         str += "[";
         for(Reservation r : this.reservations){

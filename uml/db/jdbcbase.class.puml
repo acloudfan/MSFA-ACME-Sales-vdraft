@@ -1,0 +1,24 @@
+@startuml
+
+left to right direction
+package com.acme.infra.postgresql {
+    abstract JDBCBase {
+        + executeUpdate(String : sql)
+        + executeSQL(String : sql)
+    }
+    note top of JDBCBase
+         Base class for repos that will use PostgreSQL
+    end note
+}
+
+package com.acme.sales.model.tests.repo {
+    class JDBCRepoTest {
+    }
+    note top of JDBCRepoTest
+        Used for testing the Database
+    end note
+}
+
+JDBCRepoTest --|> JDBCBase : extends
+
+@enduml

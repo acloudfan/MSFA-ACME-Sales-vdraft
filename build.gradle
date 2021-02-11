@@ -21,4 +21,8 @@ dependencies {
     //    https://www.rabbitmq.com/java-client.html
     compile 'com.rabbitmq:amqp-client:5.10.0'
     compile 'org.slf4j:slf4j-simple:1.7.21'
+//    compile 'org.postgresql:postgresql:9.2-1003-jdbc4'
+    compile 'org.json:json:20141113'
+    compile 'org.mongodb:mongodb-driver:3.12.7'
+    compile 'org.postgresql:postgresql:42.2.18'
 }

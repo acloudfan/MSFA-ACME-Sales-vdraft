@@ -1,0 +1,24 @@
+@startuml
+
+left to right direction
+package com.acme.infra.mongodb {
+    abstract MongoDatabase {
+        + executeInsert(String : collection, String : jsonDoc)
+        + find(String : collection, String : jsonDoc)
+    }
+    note top of MongoDatabase
+         Base class for repos that will use MongoDB
+    end note
+}
+
+package com.acme.sales.model.tests.repo {
+    class JDBCRepoTest {
+    }
+    note top of JDBCRepoTest
+        Used for testing the Database
+    end note
+}
+
+JDBCRepoTest --|> JDBCBase : extends
+
+@enduml

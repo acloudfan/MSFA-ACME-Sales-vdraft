@@ -45,6 +45,23 @@ public class PubSubService implements MessagingService {
     }
 
     /**
+     *
+     * @param URL        for Rabbit
+     * @param exchange
+     * @param topic
+     */
+    public PubSubService(String URL, String exchange, String topic){
+        AMQP_URL = URL;
+
+        // Exchange
+        AMQP_EXCHANGE = exchange;
+
+        // this is the routing key in Rabbit MQ terminology
+        AMQP_TOPIC = topic;
+
+    }
+
+    /**
      * This creates the connection to Rabbit MQ
      *
      * As per recommendation, keep the connection and channel open for reuse

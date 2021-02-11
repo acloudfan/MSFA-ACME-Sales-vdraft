@@ -7,9 +7,10 @@ import java.util.ArrayList;
 public interface ProposalRepo {
     /**
      * Create | Update vacation package in sales system
+     * Returns the ID of the new proposal
      * @return
      */
-    public boolean add(Proposal proposal);
+    public String add(Proposal proposal);
 
     /**
      * Get vacation package using name

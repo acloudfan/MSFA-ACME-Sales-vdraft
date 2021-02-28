@@ -17,7 +17,7 @@ public abstract class MongoDBBase {
     // SETUP THESE PARAMETERS FOR YOUR INSTANCE
     // If hostname is not  good you would get network error
     // If user/password are bad you would get "'bad auth : Authentication failed."
-    final public static String MONGODB_HOST="provide mongo db host";
+    final public static String MONGODB_HOST="acmetravel.46e5h.mongodb.net";
 
     final public static String MONGODB_USER="repouser";
     final public static String MONGODB_PASSWORD="repouser";
@@ -60,7 +60,31 @@ public abstract class MongoDBBase {
 
         MongoCollection mongoCollection = database.getCollection(collection);
 
-        return mongoCollection.find(filter);
+        FindIterable iterable = mongoCollection.find(filter);
+
+        return iterable;
+    }
+
+    /**
+     * Executes the check for existence
+     * https://docs.mongodb.com/manual/reference/method/db.collection.countDocuments/
+     */
+    public long getDocumentCount(String collection, Bson filter){
+        System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "ERROR");
+
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(MONGODB_CLUSTER_URL));
+
+        MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+
+        MongoCollection mongoCollection = database.getCollection(collection);
+
+        long count = mongoCollection.countDocuments(filter);
+
+        mongoClient.close();
+
+//        System.out.println("MongoDBBase count="+count);
+
+        return count;
     }
 
 

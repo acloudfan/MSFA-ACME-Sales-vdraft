@@ -6,7 +6,7 @@ import com.acme.sales.model.cqrs.v2.query.ProposalSubscriber;
 public class TestSubscriber {
 
     // SETUP THE AMQP Connection parameters otherwise there will be an error
-    public static final String AMQP_URL ="Provide the AMQP URL";
+    public static final String AMQP_URL ="amqps://timxedvo:5wnWNzGWcajUAtKV12nIClznso46qCeG@orangutan.rmq.cloudamqp.com/timxedvo";
 
     public static final String AMQP_EXCHANGE ="acme.sales.topic";
     public static final String AMQP_TOPIC = "proposal.update";

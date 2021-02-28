@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+
+
+HR -> (Add Employee)
+HR -> (Remove Employee)
+
+note right of HR : HR Person manages teh employees
+
+Accounting --> (Calculate Pay)
+
+
+@enduml

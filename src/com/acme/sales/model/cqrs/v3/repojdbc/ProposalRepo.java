@@ -26,7 +26,6 @@ public class ProposalRepo extends com.acme.sales.model.cqrs.v2.repojdbc.Proposal
         String sqlEvent = createEventPayloadAndSQL(customerId, packageId, pax, paxAge);
 
         // 3. Combine the SQLs in a 'Single Unit of Work'
-        //  For reference checkout : https://www.postgresql.org/docs/9.1/queries-with.html
         String query = "WITH p AS ( "+
                     sqlproposal +
                 "), pe as (" +

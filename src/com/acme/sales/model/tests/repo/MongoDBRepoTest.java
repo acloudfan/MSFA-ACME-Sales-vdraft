@@ -35,6 +35,8 @@ public class MongoDBRepoTest extends MongoDBBase  {
         System.out.println("2. Retrieved into collection");
         System.out.println("JSON="+json);
 
+        getCount();
+
     }
 
     /**
@@ -64,5 +66,18 @@ public class MongoDBRepoTest extends MongoDBBase  {
         json = "{ count: 1, result: "+docs.get(0).toJson() +"}";
 
         return json;
+    }
+
+    /**
+     * Test for the count function
+     */
+    public static void getCount(){
+        MongoDBRepoTest mongoDBRepoTest = new MongoDBRepoTest();
+
+        Bson bson =  Filters.eq("guid","90885deb-d61d-47c6-917c-a7e3e632b715");
+
+        long ct = mongoDBRepoTest.getDocumentCount("proposaleventstore", bson);
+
+        System.out.println("Ct="+ct);
     }
 }

@@ -18,7 +18,7 @@ import org.json.JSONObject;
  */
 public class ProposalSubscriber {
 
-    private final PubSubService pubSubService;
+    protected final PubSubService pubSubService;
 
     // Takes an instance of PubSubService
     public ProposalSubscriber(PubSubService pubSubService) {
@@ -58,7 +58,7 @@ public class ProposalSubscriber {
      *
      * Lets ASSUME that this subscriber is interested ONLY in the proposal part of the event
      */
-    private void processProposalEvent(String eventJSON){
+    protected void processProposalEvent(String eventJSON){
 
         //1. Create the JSON object from JSON string
         JSONObject jsonObject = new JSONObject(eventJSON);

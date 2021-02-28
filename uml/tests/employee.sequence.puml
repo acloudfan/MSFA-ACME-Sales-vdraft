@@ -1,0 +1,48 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+actor HR
+boundary  app
+entity    Profile
+entity    PartTimeEmployee
+entity    FulltTimeEmployee
+entity    ManagementEmployee
+Database    Company
+
+autonumber
+HR --> app : to create the parttime employee
+
+alt profile.type==PartTime case
+
+    app --> PartTimeEmployee : Create
+
+
+else profile.type==FulltTimeEmployee case
+
+    app --> FulltTimeEmployee : Create
+
+else profile.type==ManagementEmployee case
+
+    app --> ManagementEmployee : Create
+
+end
+
+app --> Database : Add employee to company
+
+alt Employee-Already-Exist : ADD
+    Database --> app : Return FALSE
+else Employee-DOES_NOT-Exist
+    Database --> app : Returns TRUE
+end
+
+'Remove the employee
+HR-->app : Remove employee
+app --> Employee: Create
+app--> Database : remove(Employee)
+
+alt Employee-Already-Exist : REMOVE
+    Database --> app : Return FALSE
+else Employee-DOES_NOT-Exist
+    Database --> app : Returns TRUE
+end
+@enduml

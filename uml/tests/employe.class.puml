@@ -1,0 +1,48 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Profile {
+    - name
+
+    + String name()
+    + String department()
+}
+
+abstract class Employee {
+
+    # Profile   profile
+    - double    employeePay
+
+    + double getPay()
+
+    + void calculatePay()
+
+    + boolean   equals()
+}
+
+Employee --> Profile : creates instance of  1:1
+
+class PartTimeEmployee extends Employee {
+
+   + void calculatePay()
+}
+
+class FullEmployee extends Employee {
+
+   + void calculatePay()
+}
+
+class ManagementEmployee extends FullEmployee {
+
+   + void calculatePay()
+}
+
+class Company {
+  + Array  empList
+  + Boolean addEmployee(Employee)  : Adds the employee to DB
+  + Bolean removeEmployee(Employee) : removes empl
+
+  - int find(Employee)
+}
+
+@enduml

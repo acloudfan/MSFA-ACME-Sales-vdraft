@@ -8,8 +8,8 @@ public interface KafkaConfiguration {
     public final static String KAFKA_BROKERS="omnibus-01.srvs.cloudkafka.com:9094,omnibus-02.srvs.cloudkafka.com:9094,omnibus-03.srvs.cloudkafka.com:9094";
 
     // CLOUDKARAFKA_USERNAME
-    public final static String SASL_USERNAME="change this";
+    public final static String SASL_USERNAME="your user name from cloud karafka";
 
     // CLOUDKARAFKA_PASSWORD
-    public final static String SASL_PASSWORD="change this";
+    public final static String SASL_PASSWORD="password";
 }

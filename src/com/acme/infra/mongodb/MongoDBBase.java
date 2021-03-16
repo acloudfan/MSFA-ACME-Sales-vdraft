@@ -66,6 +66,25 @@ public abstract class MongoDBBase {
     }
 
     /**
+     * Updates the document
+     */
+    public void executeUpdate(String collection, Bson filter, Bson updateDoc, boolean oneOnly){
+        System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "ERROR");
+
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(MONGODB_CLUSTER_URL));
+
+        MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+
+        MongoCollection mongoCollection = database.getCollection(collection);
+
+          if(oneOnly) {
+            mongoCollection.updateOne(filter, updateDoc);
+        } else {
+            mongoCollection.updateMany(filter, updateDoc);
+        }
+    }
+
+    /**
      * Executes the check for existence
      * https://docs.mongodb.com/manual/reference/method/db.collection.countDocuments/
      */

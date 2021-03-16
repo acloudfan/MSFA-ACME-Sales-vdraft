@@ -7,7 +7,7 @@ Test:
 Prereq:
 1. Cloud Karfaka cluster is setup  https://www.cloudkarafka.com/
 2. Mongodb database AcmeTravel on  https://cloud.mongodb.com/
-
+-----
 
 1. Make sure that Kafka credentials are correctly set in the interface
 com.acme.infra.kafka.KafkaConfiguration
